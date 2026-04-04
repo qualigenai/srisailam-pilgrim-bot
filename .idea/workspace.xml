@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="466511db-2c81-4877-bb7e-a56528d657d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/rag/hybrid_retriever.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/knowledge_base/raw/Srisailam_Sacred_Stotrams_RAG.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/knowledge_base/raw/srisailam_rituals.txt" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_rituals.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/agents/greeting_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/agents/greeting_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/rag/embedder.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/rag/embedder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/rag/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/rag/loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/rag/qa_chain.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/rag/qa_chain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils/whatsapp_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/whatsapp_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/knowledge_base/raw/srisailam_directions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_directions.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/knowledge_base/raw/srisailam_festivals.txt" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_festivals.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/knowledge_base/raw/srisailam_history.txt" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_history.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/knowledge_base/raw/srisailam_sevas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_sevas.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +48,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Rambhupal/PycharmProjects/srisailam-pilgrim-bot/knowledge_base/raw"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Rambhupal\PycharmProjects\srisailam-pilgrim-bot\knowledge_base\raw" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

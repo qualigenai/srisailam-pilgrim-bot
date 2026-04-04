@@ -2,7 +2,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-GREETING_MESSAGE = """🙏 ఓం నమః శివాయ! Jai Mallikarjuna! नमस्ते!
+GREETING_MESSAGE = """🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!
 
 Welcome to Srisailam Pilgrim Guide!
 

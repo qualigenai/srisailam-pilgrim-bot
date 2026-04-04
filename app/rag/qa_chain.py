@@ -1,5 +1,5 @@
 from groq import Groq
-from app.rag.vectorstore import search_vectorstore
+from app.rag.hybrid_retriever import search_hybrid
 from app.utils.config import GROQ_API_KEY, LLM_MODEL, MAX_TOKENS, TEMPERATURE
 import logging
 
@@ -25,10 +25,12 @@ Never make up information."""
 
 def answer_question(question: str) -> str:
     try:
-        logger.info(f"🔍 Searching knowledge base for: {question}")
-        relevant_chunks = search_vectorstore(question, top_k=3)
+        logger.info(f"🔍 Hybrid search for: {question}")
+
+        # Use hybrid retrieval (Vector + BM25)
+        relevant_chunks = search_hybrid(question, top_k=3)
         context = "\n\n".join(relevant_chunks)
-        logger.info(f"📚 Found {len(relevant_chunks)} relevant chunks")
+        logger.info(f"📚 Found {len(relevant_chunks)} chunks via hybrid search")
 
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
@@ -41,11 +43,9 @@ Devotee's question: {question}
 
 IMPORTANT RULES:
 - Answer ONLY if the context contains relevant information
-- If the context does not contain relevant information, say exactly:
-  "🙏 I don't have specific information about that. Please visit srisailadevasthanam.org or call 08524-288888 for accurate details."
+- If context is not relevant say: "🙏 I don't have specific information about that. Please visit srisailadevasthanam.org or call 08524-288888 for accurate details."
 - Never make up information
-- Never answer questions unrelated to Srisailam temple
-- Keep answer concise and clear for WhatsApp"""}
+- Keep answer concise for WhatsApp"""}
         ]
 
         response = client.chat.completions.create(
@@ -56,9 +56,9 @@ IMPORTANT RULES:
         )
 
         answer = response.choices[0].message.content
-        logger.info("✅ Answer generated")
+        logger.info("✅ Answer generated via Hybrid RAG")
         return answer
 
     except Exception as e:
         logger.error(f"❌ QA error: {e}")
-        return "🙏 Sorry, I couldn't process your question right now. Please visit srisailadevasthanam.org or call 08524-288888."
+        return "🙏 Sorry, I couldn't process your question. Please visit srisailadevasthanam.org or call 08524-288888."
