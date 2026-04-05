@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+from app.webhook.router import router as webhook_router
 from dotenv import load_dotenv
 import uvicorn
-from app.webhook.router import router as webhook_router
+import logging
+import os
 
+logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 app = FastAPI(
@@ -11,7 +14,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Include webhook router
 app.include_router(webhook_router)
 
 @app.get("/health")
@@ -24,7 +26,8 @@ async def health_check():
 
 @app.get("/")
 async def root():
-    return {"message": "Jai Mallikarjuna! Bot is alive."}
+    return {"message": "OM NAMASIVAYA! OM SREE MATREY NAMAHA! Bot is alive."}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
