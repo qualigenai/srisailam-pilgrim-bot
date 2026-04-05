@@ -1,0 +1,5 @@
+ use '*' as a wildcard for any digit.
+        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Numb

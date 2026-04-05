@@ -2,7 +2,7 @@
 .env
 __pycache__/
 *.pyc
-knowledge_base/processed/
+#knowledge_base/processed/
 .idea/
 *.egg-info/
 dist/
