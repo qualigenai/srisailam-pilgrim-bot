@@ -1,5 +1,5 @@
-from fastapi import FastAPI
 from app.webhook.router import router as webhook_router
+from fastapi import FastAPI, Request
 from dotenv import load_dotenv
 import uvicorn
 import logging
@@ -11,6 +11,8 @@ print("Starting Srisailam Pilgrim Bot...", flush=True)
 
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
+
+
 
 app = FastAPI(
     title="Srisailam Pilgrim Bot",
