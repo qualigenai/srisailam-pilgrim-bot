@@ -4,6 +4,7 @@ from app.agents.booking_agent import handle_booking
 from app.rag.qa_chain import answer_question
 from app.multilingual.detector import detect_language
 from app.multilingual.translator import translate_to_english, translate_from_english
+from app.agents.journey_planner_agent import create_itinerary, needs_more_info
 from app.utils.session_store import (
     get_user_language, set_user_language,
     add_to_history, get_history,
@@ -70,7 +71,21 @@ def process_message(message: str, phone: str = "unknown") -> str:
             response = handle_booking()
             if detected_lang != "en":
                 response = translate_from_english(response, detected_lang)
+        elif intent == "journey":
+            if needs_more_info(english_message):
+                response = """🙏 I'd love to plan your Srisailam pilgrimage!
 
+        Please share:
+        - Which city are you travelling from?
+        - How many days do you have?
+        - How many people in your group?
+        - Any special needs (elderly, children)?
+
+        I'll create a personalized itinerary for you! 🛕"""
+            else:
+                response = create_itinerary(english_message, phone)
+            if detected_lang != "en":
+                response = translate_from_english(response, detected_lang)
         elif intent in ["temple_info", "ritual", "festival"]:
             response = answer_question(english_message)
             disclaimer = get_disclaimer(detected_lang)
