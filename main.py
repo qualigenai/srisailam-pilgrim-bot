@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 import uvicorn
 import logging
 import os
+import sys
+print(f"Python version: {sys.version}", flush=True)
+print("Starting Srisailam Pilgrim Bot...", flush=True)
 
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
