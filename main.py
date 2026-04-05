@@ -5,9 +5,6 @@ import uvicorn
 import logging
 import os
 import sys
-import asyncio
-import httpx
-from contextlib import asynccontextmanager
 
 print(f"Python version: {sys.version}", flush=True)
 print("Starting Srisailam Pilgrim Bot...", flush=True)
@@ -15,28 +12,10 @@ print("Starting Srisailam Pilgrim Bot...", flush=True)
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
-RENDER_URL = "https://srisailam-pilgrim-bot-1.onrender.com"
-
-async def keep_alive():
-    while True:
-        await asyncio.sleep(840)
-        try:
-            async with httpx.AsyncClient() as client:
-                await client.get(f"{RENDER_URL}/health")
-                print("✅ Keep-alive ping sent", flush=True)
-        except Exception as e:
-            print(f"⚠️ Keep-alive failed: {e}", flush=True)
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    asyncio.create_task(keep_alive())
-    yield
-
 app = FastAPI(
     title="Srisailam Pilgrim Bot",
     description="AI WhatsApp chatbot for Srisailam temple pilgrims",
-    version="1.0.0",
-    lifespan=lifespan
+    version="1.0.0"
 )
 
 app.include_router(webhook_router)
