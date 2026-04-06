@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="466511db-2c81-4877-bb7e-a56528d657d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/agents/journey_planner_agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_accommodation.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_accommodation.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_itinerary.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_itinerary.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_nearby.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/agents/orchestrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/agents/orchestrator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/knowledge_base/processed/retriever.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/processed/retriever.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/agents/intent_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/agents/intent_classifier.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
