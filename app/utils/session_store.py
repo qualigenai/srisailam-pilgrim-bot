@@ -77,3 +77,19 @@ def cleanup_sessions():
         del sessions[phone]
     if expired:
         logger.info(f"Cleaned {len(expired)} expired sessions")
+
+# ── Ritual Flow State Helpers ──────────────────────────────────────────────────
+
+def get_ritual_flow(phone: str) -> dict:
+    """Get current ritual flow state for a user."""
+    return get_session(phone).get("ritual_flow", {})
+
+def set_ritual_flow(phone: str, state: dict):
+    """Set ritual flow state for a user."""
+    get_session(phone)["ritual_flow"] = state
+    logger.info(f"🛕 Ritual flow state set for {phone}: {state}")
+
+def clear_ritual_flow(phone: str):
+    """Clear ritual flow state for a user."""
+    get_session(phone)["ritual_flow"] = {}
+    logger.info(f"🛕 Ritual flow cleared for {phone}")

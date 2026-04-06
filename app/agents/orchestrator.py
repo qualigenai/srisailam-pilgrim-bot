@@ -9,7 +9,8 @@ from app.agents.journey_planner_agent import create_itinerary, needs_more_info
 from app.utils.session_store import (
     get_user_language, set_user_language,
     add_to_history, get_history,
-    set_user_name, get_user_name
+    set_user_name, get_user_name,
+    get_ritual_flow
 )
 from app.agents.memory_agent import (
     build_context_prompt,
@@ -18,9 +19,11 @@ from app.agents.memory_agent import (
 )
 from app.utils.error_handler import get_fallback_message, get_unknown_message
 from app.utils.message_templates import get_disclaimer
+from app.flows.ritual_flow import handle_ritual_flow
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 def process_message(message: str, phone: str = "unknown") -> str:
     detected_lang = "en"
@@ -42,7 +45,19 @@ def process_message(message: str, phone: str = "unknown") -> str:
                 set_user_name(phone, name)
                 logger.info(f"👤 Name detected: {name}")
 
-        # Step 4 — Check if follow-up question
+        # Step 4 — If user is mid ritual flow, handle immediately
+        #           (before intent detection, before follow-up check)
+        ritual_state = get_ritual_flow(phone)
+        if ritual_state.get("step"):
+            logger.info(f"🛕 Continuing ritual flow at step: {ritual_state['step']}")
+            add_to_history(phone, "user", message)
+            response = handle_ritual_flow(phone, english_message)
+            if detected_lang != "en":
+                response = translate_from_english(response, detected_lang)
+            add_to_history(phone, "bot", response)
+            return response
+
+        # Step 5 — Check if follow-up question
         history = get_history(phone)
         history_text = "\n".join([
             f"{'Pilgrim' if h['role'] == 'user' else 'Bot'}: {h['message']}"
@@ -53,14 +68,14 @@ def process_message(message: str, phone: str = "unknown") -> str:
             logger.info("🔄 Follow-up question detected — adding context")
             english_message = build_context_prompt(phone, english_message)
 
-        # Step 5 — Classify intent
+        # Step 6 — Classify intent
         intent = classify_intent(english_message)
         logger.info(f"🎯 Intent: {intent}")
 
-        # Step 6 — Store user message in history
+        # Step 7 — Store user message in history
         add_to_history(phone, "user", message)
 
-        # Step 7 — Route to correct agent
+        # Step 8 — Route to correct agent
         if intent == "greeting":
             name = get_user_name(phone)
             if name and len(history) > 0:
@@ -98,7 +113,15 @@ def process_message(message: str, phone: str = "unknown") -> str:
             ):
                 response = translate_from_english(response, detected_lang)
 
-        elif intent in ["temple_info", "ritual", "festival"]:
+        elif intent == "ritual":
+            # Start the multi-turn ritual flow — does NOT call RAG directly
+            logger.info("🛕 Ritual intent — starting seva flow")
+            response = handle_ritual_flow(phone, english_message)
+            if detected_lang != "en":
+                response = translate_from_english(response, detected_lang)
+
+        elif intent in ["temple_info", "festival"]:
+            # RAG for general temple/festival info only
             response = answer_question(english_message)
             disclaimer = get_disclaimer(detected_lang)
             if detected_lang != "en":
@@ -108,7 +131,7 @@ def process_message(message: str, phone: str = "unknown") -> str:
         else:
             response = get_unknown_message(detected_lang)
 
-        # Step 8 — Store bot response in history
+        # Step 9 — Store bot response in history
         add_to_history(phone, "bot", response)
 
         return response
