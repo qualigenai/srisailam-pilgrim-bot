@@ -6,12 +6,13 @@ logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
 INTENTS = {
-    "greeting": "User is saying hello, hi, namaste, jai shiva, jai mallikarjuna, om namah shivaya, నమస్కారం, నమస్తే, హలో, शिवाय नमः, नमस्ते, जय शिव or any greeting in any language",
-    "journey": "User wants to PLAN A TRIP or VISIT to Srisailam. Keywords: plan, visit, coming, travel, itinerary, days, trip, tour, how many days, family trip, వెళ్ళాలి, వెళ్ళాలనుకుంటున్నాను, రోజులు, యాత్ర, जाना, दिन, यात्रा. User mentions number of days OR starting city OR group size in context of visiting",
-    "temple_info": "User is asking about temple timings, location, history, significance, dress code, facilities, darshan types",
-    "booking": "User is asking specifically about HOW TO BOOK darshan tickets, seva tickets, accommodation — booking process only",
-    "ritual": "User is asking about sevas, pujas, rituals, abhishekam, significance of specific rituals",
-    "festival": "User is asking about festivals, special days, Maha Shivaratri, Karthika Masam, celebrations",
+    "greeting": "User is saying hello, hi, namaste, jai shiva, jai mallikarjuna, om namah shivaya, నమస్కారం, నమస్తే, हेलो or any greeting in any language",
+    "journey": "User wants to PLAN A TRIP or VISIT to Srisailam. Mentions days, travel, coming from a city, itinerary, trip planning, family trip, వెళ్ళాలి, వెళ్ళాలనుకుంటున్నాను, రోజులు, యాత్ర, जाना, दिन, यात्रा",
+    "spiritual": "User asks about which seva to do, mantra meanings, prayer guide, pilgrimage preparation checklist, prasadam, annadanam, spiritual guidance, what to pray for, which puja for health/wealth/family, ఏ సేవ, మంత్రం, ప్రసాదం, అన్నదానం, कौन सी सेवा, मंत्र, प्रसाद",
+    "temple_info": "User asks about temple timings, location, history, significance, dress code, entry rules, facilities",
+    "booking": "User asks specifically about HOW TO BOOK darshan tickets, seva tickets, accommodation — booking process only",
+    "ritual": "User asks about specific sevas, pujas, rituals, abhishekam details — what they are and how they work",
+    "festival": "User asks about festivals, special days, Maha Shivaratri, Karthika Masam, celebrations",
     "unknown": "Message is completely unrelated to Srisailam temple"
 }
 
