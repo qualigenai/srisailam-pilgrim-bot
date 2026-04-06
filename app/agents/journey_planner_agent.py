@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
-PLANNER_SYSTEM_PROMPT = """You are an expert Srisailam temple pilgrimage planner. 
+PLANNER_SYSTEM_PROMPT = """You are an expert Srisailam temple pilgrimage planner.
 You have deep knowledge of Srisailam temple, its sevas, timings, nearby attractions and travel logistics.
 
 Your job is to create personalized pilgrimage itineraries for devotees based on:
@@ -23,10 +23,12 @@ Always create practical, devotion-focused itineraries that:
 - Include must-visit spots around the temple
 - Suggest suitable sevas based on their needs
 - Mention booking requirements
-- Keep it concise for WhatsApp
 
-Start response with 🙏 and use simple formatting suitable for WhatsApp.
-For booking always direct to srisailadevasthanam.org or Mana Mitra (9552300009)."""
+IMPORTANT: Keep response under 1200 characters total.
+Use emojis for structure instead of markdown bold.
+Concise bullet points suitable for WhatsApp.
+For booking always direct to srisailadevasthanam.org or Mana Mitra 9552300009."""
+
 
 def extract_journey_details(message: str) -> dict:
     try:
@@ -58,6 +60,7 @@ SPECIAL: <any special requirements like elderly, children, specific seva>"""
         logger.error(f"Detail extraction error: {e}")
         return {}
 
+
 def create_itinerary(message: str, phone: str) -> str:
     try:
         logger.info(f"🗺️ Creating itinerary for: {message}")
@@ -81,22 +84,22 @@ def create_itinerary(message: str, phone: str) -> str:
         date = details.get("DATE", "unknown")
         special = details.get("SPECIAL", "none")
 
-        user_prompt = f"""Create a personalized Srisailam pilgrimage itinerary.
+        user_prompt = f"""Create a concise Srisailam pilgrimage itinerary under 1000 characters.
 
 Pilgrim details:
-- Name greeting: {name_greeting}
-- Travelling from: {from_city}
-- Number of days: {days}
+- Greeting: {name_greeting}
+- From: {from_city}
+- Days: {days}
 - Group: {people}
-- Date/Season: {date}
-- Special needs: {special}
+- Date: {date}
+- Special: {special}
 
-Relevant temple information:
+Temple info:
 {context}
 
-Create a practical day-by-day itinerary. 
-Include travel tips, best darshan times, seva recommendations and must-visit spots.
-Keep it concise and formatted for WhatsApp with emojis."""
+Format for WhatsApp — use emojis, short bullet points, day-wise plan.
+Include travel tip and must-visit spot.
+Keep total under 1000 characters."""
 
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
@@ -104,16 +107,43 @@ Keep it concise and formatted for WhatsApp with emojis."""
                 {"role": "system", "content": PLANNER_SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt}
             ],
-            max_tokens=600,
+            max_tokens=400,
             temperature=0.3
         )
 
         itinerary = response.choices[0].message.content
         logger.info("✅ Itinerary created successfully")
 
-        # Add booking footer
-        footer = "\n\n📱 Book darshan/seva: srisailadevasthanam.org\nor Mana Mitra: 9552300009"
-        return itinerary + footer
+        # Booking footer
+        footer = "\n\n📱 Book: srisailadevasthanam.org\nMana Mitra: 9552300009"
+        full_response = itinerary + footer
+
+        # WhatsApp 1600 char limit — compress if needed
+        if len(full_response) > 1500:
+            logger.info(f"⚠️ Response too long ({len(full_response)} chars) — compressing...")
+            concise_prompt = f"""Rewrite this itinerary in under 1100 characters for WhatsApp.
+Keep complete day-wise plan but make each point very brief.
+Use emojis. No markdown formatting.
+Itinerary: {itinerary}"""
+
+            concise_response = client.chat.completions.create(
+                model="llama-3.1-8b-instant",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a concise travel planner. Keep responses under 1100 characters. No markdown."
+                    },
+                    {"role": "user", "content": concise_prompt}
+                ],
+                max_tokens=350,
+                temperature=0.1
+            )
+            itinerary = concise_response.choices[0].message.content
+            full_response = itinerary + footer
+            logger.info(f"✅ Compressed to {len(full_response)} chars")
+
+        logger.info(f"📏 Final response length: {len(full_response)} chars")
+        return full_response
 
     except Exception as e:
         logger.error(f"❌ Journey planner error: {e}")
@@ -125,7 +155,9 @@ Please tell me:
 - How many people in your group?
 - Any special requirements?
 
-📱 You can also book at: srisailadevasthanam.org"""
+📱 Book: srisailadevasthanam.org
+Mana Mitra: 9552300009"""
+
 
 def needs_more_info(message: str) -> bool:
     details = extract_journey_details(message)
