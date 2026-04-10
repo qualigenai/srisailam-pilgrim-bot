@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-10T13:28:34.679544",
+        "steps": [
+            {
+                "timestamp": "2026-04-10T13:28:34.370762",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Thank you very much"
+            },
+            {
+                "timestamp": "2026-04-10T13:28:34.679544",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-10T13:28:34.679544",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    }
+]

@@ -1,0 +1,20 @@
+scenario:
+  id: srisailam_pilgrim_support_v1
+  goal: "Provide accurate temple information, ritual guidance, and booking assistance."
+
+roles:
+  - name: LinguisticExpert
+    responsibility: "Detect language and translate between Telugu/Hindi and English."
+  - name: InfoAnalyst
+    responsibility: "Retrieve factual data from the Srisailam RAG knowledge base."
+  - name: RitualSpecialist
+    responsibility: "Explain puja procedures and their religious significance."
+  - name: BookingCoordinator
+    responsibility: "Direct users to the official Mana Mitra booking portal."
+
+execution:
+  mode: sequential
+  order:
+    - LinguisticExpert
+    - InfoAnalyst
+    - BookingCoordinator

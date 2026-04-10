@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-10T13:32:08.967766",
+        "steps": [
+            {
+                "timestamp": "2026-04-10T13:31:46.978608",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "I am planning a 2 day trip from Hyderabad"
+            },
+            {
+                "timestamp": "2026-04-10T13:31:48.330509",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=journey name=NONE"
+            },
+            {
+                "timestamp": "2026-04-10T13:32:08.967766",
+                "role": "JourneyPlanner",
+                "agent_id": "journey_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "Dear Devotee 🙏\nIdeal 2-day Srisailam itinerary from Hyderabad:\nDay 1: \n- 5:30 AM: Bus from MGBS to S"
+            }
+        ]
+    }
+]

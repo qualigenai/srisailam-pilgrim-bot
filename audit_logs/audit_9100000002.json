@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-10T13:34:19.206762",
+        "steps": [
+            {
+                "timestamp": "2026-04-10T13:34:03.144664",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple hours?"
+            },
+            {
+                "timestamp": "2026-04-10T13:34:04.249818",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-10T13:34:17.529379",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 The temple timings at Srisailam are from 5:30 AM to 10:00 PM, with four sessions: Morning (5:30 AM"
+            }
+        ]
+    }
+]
