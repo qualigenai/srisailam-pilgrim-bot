@@ -1,0 +1,68 @@
+[
+    {
+        "time": "2026-04-10T18:27:36.818937",
+        "steps": [
+            {
+                "timestamp": "2026-04-10T18:27:33.670400",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "My name is Kumar"
+            },
+            {
+                "timestamp": "2026-04-10T18:27:36.804808",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=Kumar"
+            },
+            {
+                "timestamp": "2026-04-10T18:27:36.818937",
+                "role": "MemoryAnalyst",
+                "agent_id": "extractor_v1",
+                "action": "Name Detection",
+                "output_preview": "Kumar"
+            },
+            {
+                "timestamp": "2026-04-10T18:27:36.818937",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-10T18:39:53.332742",
+        "steps": [
+            {
+                "timestamp": "2026-04-10T18:39:50.530180",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "My name is Kumar"
+            },
+            {
+                "timestamp": "2026-04-10T18:39:53.332742",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=Kumar"
+            },
+            {
+                "timestamp": "2026-04-10T18:39:53.332742",
+                "role": "MemoryAnalyst",
+                "agent_id": "extractor_v1",
+                "action": "Name Detection",
+                "output_preview": "Kumar"
+            },
+            {
+                "timestamp": "2026-04-10T18:39:53.332742",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
+    }
+]

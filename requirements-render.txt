@@ -17,3 +17,6 @@ scikit-learn
 pypdf
 python-docx
 python-multipart
+pytest
+pytest-asyncio
+pytest-cov
