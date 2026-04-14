@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="466511db-2c81-4877-bb7e-a56528d657d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_agents.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_integration.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_journey.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_memory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_multilingual.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_performance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_rag.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_spiritual.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/knowledge_base/raw/srisailam_nearby.txt" beforeDir="false" afterPath="$PROJECT_DIR$/knowledge_base/raw/srisailam_nearby.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements-render.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements-render.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/agents/memory_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/agents/memory_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/agents/orchestrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/agents/orchestrator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

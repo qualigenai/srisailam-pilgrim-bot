@@ -52,13 +52,34 @@ If yes, reply with ONLY the name. If no, reply with NONE."""
 def is_follow_up(message: str, history: str) -> bool:
     if not history:
         return False
+
+    # Direct complete questions should NEVER be treated as follow-ups
+    direct_question_indicators = [
+        "what time", "when does", "how to", "how do",
+        "what is", "what are", "where is", "where are",
+        "how much", "how many", "how long", "how far",
+        "tell me about", "explain", "what happens",
+        "సమయాలు ఏమిటి", "ఎలా వెళ్ళాలి", "ఏమిటి",
+        "समय क्या", "कैसे जाएं", "क्या है"
+    ]
+
+    message_lower = message.lower()
+
+    # If message contains direct question words → NOT a follow-up
+    if any(indicator in message_lower for indicator in direct_question_indicators):
+        return False
+
+    # Only treat as follow-up if message is SHORT and AMBIGUOUS
+    if len(message.split()) > 8:
+        return False
+
+    # Short ambiguous follow-up words
     follow_up_words = [
         "tell me more", "what about", "and then", "how about",
-        "more details", "explain more", "what else", "how long",
-        "how much", "when is it", "where is it", "can i", "is it",
+        "more details", "explain more", "what else",
         "that", "this", "it", "those", "these",
-        "అది", "ఇది", "మరింత", "ఎంత", "ఎప్పుడు",
-        "वह", "यह", "और", "कितना", "कब"
+        "అది", "ఇది", "మరింత",
+        "वह", "यह", "और"
     ]
-    message_lower = message.lower()
+
     return any(word in message_lower for word in follow_up_words)

@@ -155,11 +155,15 @@ def process_message(message: str, phone: str = "unknown") -> str:
 
         # --- CONTEXT BUILDING ---
         if is_followup:
-            english_message = build_context_prompt(phone, english_message)
-            auditor.log_step(
-                "MemoryAnalyst", "context_v1",
-                "Context Enrichment", english_message[:100]
-            )
+            # Only add context for short ambiguous messages
+            # Never for complete direct questions (len > 6 words)
+            word_count = len(english_message.split())
+            if word_count <= 6:
+                english_message = build_context_prompt(phone, english_message)
+                auditor.log_step(
+                    "MemoryAnalyst", "context_v1",
+                    "Context Enrichment", english_message[:100]
+                )
 
         add_to_history(phone, "user", message)
 
