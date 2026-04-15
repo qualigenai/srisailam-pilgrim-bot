@@ -75,7 +75,7 @@ Rules:
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=30,
+            max_tokens=100,
             temperature=0
         )
         raw = response.choices[0].message.content.strip()
@@ -154,16 +154,20 @@ def process_message(message: str, phone: str = "unknown") -> str:
             )
 
         # --- CONTEXT BUILDING ---
-        if is_followup:
-            # Only add context for short ambiguous messages
-            # Never for complete direct questions (len > 6 words)
-            word_count = len(english_message.split())
-            if word_count <= 6:
-                english_message = build_context_prompt(phone, english_message)
-                auditor.log_step(
-                    "MemoryAnalyst", "context_v1",
-                    "Context Enrichment", english_message[:100]
-                )
+        # --- CONTEXT BUILDING ---
+        # Only inject context for genuinely ambiguous short messages
+        history = get_history(phone)
+        history_text = "\n".join([
+            f"{h['role']}: {h['message']}"
+            for h in history[-4:]
+        ]) if history else ""
+
+        if is_followup and len(english_message.split()) <= 5:
+            english_message = build_context_prompt(phone, english_message)
+            auditor.log_step(
+                "MemoryAnalyst", "context_v1",
+                "Context Enrichment", english_message[:100]
+            )
 
         add_to_history(phone, "user", message)
 
