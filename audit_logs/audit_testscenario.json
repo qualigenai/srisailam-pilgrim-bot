@@ -1,0 +1,297 @@
+[
+    {
+        "time": "2026-04-15T13:22:09.649524",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:21:57.220513",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does Srisailam temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T13:21:58.418502",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:09.649524",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 The temple opens daily at 6:30 AM for morning darshan."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:10.465472",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:09.654112",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to reach Srisailam Temple?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:09.905929",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:10.463472",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 To reach Srisailam Temple, you can take APSRTC buses from Hyderabad (Mahatma Gandhi Bus Station), "
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:13.112837",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:10.474311",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Which seva should I do?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:12.146063",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=ritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:12.146063",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: How to reach Srisailam Temple?\nBot: 🙏 To reach Srisailam Temple, you c"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:13.112837",
+                "role": "RitualSpecialist",
+                "agent_id": "ritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nFor moksha, I recommend Suprabhata Seva at 4:30 AM. It's a deeply personal experien"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:18.001788",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:13.119926",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Coming from Hyderabad, 2 days, family of 4"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:15.430860",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=journey name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:18.000673",
+                "role": "JourneyPlanner",
+                "agent_id": "journey_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "Dear Devotee 👋\n\n2-Day Srisailam Pilgrimage from Hyderabad 🚂\n\n**Day 1:**\n- 05:30 AM: Depart MGBS Hyde"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:20.868658",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:18.010029",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What prasadam is available?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:20.297389",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:20.298400",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\n📱 Book: srisailadevasthanam.org\nMana Mitra: 9552300009\n\n_Unofficial community b"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:20.867635",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about prasadam. Please visit srisailadevasthanam.org or call 085"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:35.812399",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:20.878071",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "When is Maha Shivaratri?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:23.055601",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:23.056655",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: What prasadam is available?\nBot: 🙏 I don't have specific information a"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:35.811345",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about Maha Shivaratri. Please visit srisailadevasthanam.org or c"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:36.052631",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:35.819665",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to book darshan?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:36.051844",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:36.051844",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:36.293028",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:36.057331",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Thank you"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:36.292025",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:36.292025",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:22:43.899395",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:36.898690",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:38.020268",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:38.021274",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: Thank you\nBot: 🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhr"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:42.511520",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Unfortunately, the context doesn't mention temple timings. Please visit srisailadevasthanam.org or"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:23:00.393379",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:22:44.479445",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:48.436359",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:48.436359",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: గుడి సమయాలు ఏమిటి?\nBot: 🙏 దురదృష్టవశాత్తు, సందర్భం ఆలయ సమయాలను పేర్కొన"
+            },
+            {
+                "timestamp": "2026-04-15T13:22:59.119592",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about temple timings. Please visit srisailadevasthanam.org or ca"
+            }
+        ]
+    }
+]

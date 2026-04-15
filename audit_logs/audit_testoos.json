@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-15T13:50:35.274280",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:50:29.515487",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the price of petrol?"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:35.273202",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:35.273202",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-15T13:50:07.397327",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:53.627626",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Coming from Delhi with family of 6 including 2 elderly grandparents and 2 children aged 5 and 8, planning 3 days trip next month"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:55.575648",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=journey name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:07.396330",
+                "role": "JourneyPlanner",
+                "agent_id": "journey_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee, \n📍 From Delhi, 3-day Srisailam pilgrimage plan for a family of 6 (2 elderly, 2 child"
+            }
+        ]
+    }
+]

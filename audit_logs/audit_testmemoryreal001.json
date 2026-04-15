@@ -1,0 +1,61 @@
+[
+    {
+        "time": "2026-04-15T13:51:03.956284",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:50:53.329590",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi I am Priya"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:03.954288",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=Priya"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:03.955285",
+                "role": "MemoryAnalyst",
+                "agent_id": "extractor_v1",
+                "action": "Name Detection",
+                "output_preview": "Priya"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:03.955285",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:51:06.649615",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:51:03.966456",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:06.647579",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=Priya"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:06.648618",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Welcome back Priya! How can I help you today?\n\nAsk me anything about Srisailam — timings, sevas, t"
+            }
+        ]
+    }
+]

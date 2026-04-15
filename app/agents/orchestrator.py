@@ -1,7 +1,5 @@
 import logging
 from app.agents.intent_classifier import classify_intent
-import os
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
 from app.agents.greeting_agent import handle_greeting
 from app.agents.booking_agent import handle_booking
 from app.rag.qa_chain import answer_question
@@ -23,15 +21,67 @@ from app.utils.awp_helpers import finalize_awp_artifact
 
 logger = logging.getLogger(__name__)
 
+# ── Shared deterministic phrase lists ───────────────────────
+
+CLOSURE_PHRASES = [
+    "thanks", "thank you", "ok thanks", "okay thanks",
+    "bye", "goodbye", "dhanyavadalu", "shukriya",
+    "got it", "understood", "noted"
+]
+
+GREETING_PHRASES = [
+    "hi", "hello", "hey", "namaste",
+    "jai mallikarjuna", "jai shiva",
+    "om namah shivaya", "har har mahadev",
+    "హర హర మహాదేవ్", "నమస్కారం", "నమస్తే",
+    "नमस्ते", "जय शिव", "हर हर महादेव"
+]
+
+DIRECTIONS_PHRASES = [
+    "how to reach", "how to get to", "route to",
+    "directions to", "distance to", "distance from",
+    "bus from", "bus to", "train to", "train from",
+    "nearest railway", "nearest station", "nearest airport",
+    "railway station", "bus station", "nallamala", "forest road",
+    "ఎలా చేరుకోవాలి", "ఎలా వెళ్ళాలి", "రైలు", "బస్సు",
+    "कैसे पहुंचें", "कैसे जाएं", "रेलवे", "बस"
+]
+
+ACCOMMODATION_PHRASES = [
+    "where to stay", "accommodation", "hotel near",
+    "lodge near", "nandhiniketan", "rooms at",
+    "dharmashalas", "guest house", "stay near",
+    "stay in srisailam", "వసతి", "హోటల్",
+    "रुकने", "होटल", "आवास"
+]
+
+FESTIVAL_PHRASES = [
+    "pradosha", "pradosh",
+    "is monday", "monday special",
+    "shivaratri", "karthika",
+    "సోమవారం", "ప్రదోష",
+    "सोमवार", "प्रदोष"
+]
+
+PREPARATION_PHRASES = [
+    "how to prepare", "preparation for",
+    "what to bring", "what to carry",
+    "checklist for", "dress code",
+    "తయారు", "ఏమి తీసుకెళ్ళాలి",
+    "तैयारी", "क्या पहनना"
+]
+
 
 def analyze_message_combined(message: str, phone: str) -> dict:
     """
-    Single Groq call that combines name extraction + intent.
-    Saves 1 Groq call per message = 25% reduction in API usage.
+    Single Groq call combining intent + name + follow-up detection.
+    Deterministic checks run first to save API calls.
     """
     from groq import Groq
     from app.utils.config import GROQ_API_KEY
     client = Groq(api_key=GROQ_API_KEY)
+
+    text = message.lower().strip()
 
     history = get_history(phone)
     history_text = "\n".join([
@@ -39,26 +89,33 @@ def analyze_message_combined(message: str, phone: str) -> dict:
         for h in history[-4:]
     ]) if history else "none"
 
-    # Deterministic closure check — no Groq needed
-    text = message.lower().strip()
+    # ── 1. CLOSURE (deterministic) ──
+    if any(text == p or text.startswith(p) for p in CLOSURE_PHRASES):
+        return {"INTENT": "closure", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
 
-    # FIRST — directions
-    if any(p in text for p in ["how to reach", "how to get to", "directions to"]):
+    # ── 2. GREETING (deterministic) ──
+    text_words = text.split()
+    if any(p == text or p in text_words or text.startswith(p + " ") for p in GREETING_PHRASES):
+        if "?" not in message and len(message.split()) <= 5:
+            return {"INTENT": "greeting", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+
+    # ── 3. DIRECTIONS → temple_info (deterministic) ──
+    if any(p in text for p in DIRECTIONS_PHRASES):
         return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
 
-    closure_phrases = [
-        "thanks", "thank you", "ok", "okay", "bye",
-        "dhanyavadalu", "shukriya", "👍"
-    ]
-    if any(phrase in text for phrase in closure_phrases):
-        return {
-            "INTENT": "closure",
-            "NAME": "NONE",
-            "IS_FOLLOWUP": "NO"
-        }
-    # Deterministic directions
-    if any(p in text for p in ["how to reach", "how to get to", "directions to", "ఎలా చేరుకోవాలి", "कैसे पहुंचें"]):
+    # ── 4. ACCOMMODATION → temple_info (deterministic) ──
+    if any(p in text for p in ACCOMMODATION_PHRASES):
         return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+
+    # ── 5. FESTIVAL (deterministic) ──
+    if any(p in text for p in FESTIVAL_PHRASES):
+        return {"INTENT": "festival", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+
+    # ── 6. PREPARATION → spiritual (deterministic) ──
+    if any(p in text for p in PREPARATION_PHRASES):
+        return {"INTENT": "spiritual", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+
+    # ── 7. LLM combined analysis ──
     try:
         prompt = f"""Analyze this message for Srisailam temple WhatsApp bot.
 
@@ -68,23 +125,24 @@ Recent chat: {history_text}
 Reply in EXACTLY this format:
 INTENT: <greeting|journey|spiritual|ritual|temple_info|booking|festival|closure|unknown>
 NAME: <person name if introduced, else NONE>
-IS_FOLLOWUP: <YES if refers to previous conversation, else NO>
+IS_FOLLOWUP: <YES if refers to previous conversation topic, else NO>
 
-Rules:
-- journey = planning a trip, days, coming from city
-- ritual = which seva to do, seva for health/wealth/family
-- spiritual = mantra meaning, prayer significance
-- temple_info = timings, facilities, dress code, prasadam
-- closure = thanks, bye, okay, done"""
+RULES:
+1. transport/distance/bus/train → temple_info
+2. plan trip with days + city → journey
+3. which seva / puja → ritual
+4. mantra/prepare/checklist → spiritual
+5. timings/facilities/darshan info → temple_info
+6. how to book → booking
+7. festival/auspicious day → festival"""
 
-        from groq import Groq
-        client = Groq(api_key=GROQ_API_KEY)
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=100,
+            max_tokens=30,
             temperature=0
         )
+
         raw = response.choices[0].message.content.strip()
         result = {}
         for line in raw.split("\n"):
@@ -108,8 +166,8 @@ Rules:
 
 def process_message(message: str, phone: str = "unknown") -> str:
     """
-    AWP v2 Orchestrator — optimized for Render free tier.
-    Reduced from 3-4 Groq calls to 2 Groq calls per message.
+    AWP v2 Orchestrator — optimized multi-agent workflow.
+    Max 2 Groq calls per message.
     """
     auditor = AWPAuditor(phone)
     detected_lang = "en"
@@ -117,7 +175,7 @@ def process_message(message: str, phone: str = "unknown") -> str:
     try:
         logger.info(f"💬 AWP Workflow Started for: {phone}")
 
-        # --- ROLE: LinguisticExpert ---
+        # ── ROLE: LinguisticExpert ──
         detected_lang = detect_language(message)
         set_user_language(phone, detected_lang)
         english_message = translate_to_english(message, detected_lang)
@@ -126,7 +184,7 @@ def process_message(message: str, phone: str = "unknown") -> str:
             "Translation to EN", english_message
         )
 
-        # --- DETERMINISTIC CHECK: Ritual Flow (no Groq needed) ---
+        # ── DETERMINISTIC: Ritual Flow continuation ──
         ritual_state = get_ritual_flow(phone)
         if ritual_state.get("step"):
             add_to_history(phone, "user", message)
@@ -135,13 +193,11 @@ def process_message(message: str, phone: str = "unknown") -> str:
                 "RitualSpecialist", "ritual_flow_v1",
                 "Flow Continuation", response
             )
-            final_artifact = finalize_awp_artifact(
-                response, detected_lang, phone
-            )
+            final_artifact = finalize_awp_artifact(response, detected_lang, phone)
             auditor.save_audit_log()
             return final_artifact
 
-        # --- COMBINED ANALYSIS (1 Groq call instead of 2) ---
+        # ── COMBINED ANALYSIS (1 Groq call) ──
         analysis = analyze_message_combined(english_message, phone)
         intent = analysis.get("INTENT", "unknown")
         detected_name = analysis.get("NAME", "NONE")
@@ -149,26 +205,18 @@ def process_message(message: str, phone: str = "unknown") -> str:
 
         auditor.log_step(
             "AnalysisAgent", "combined_v2",
-            "Intent + Name Detection", f"intent={intent} name={detected_name}"
+            "Intent + Name", f"intent={intent} name={detected_name}"
         )
 
-        # --- ROLE: MemoryAnalyst ---
+        # ── ROLE: MemoryAnalyst ──
         if detected_name != "NONE" and not get_user_name(phone):
             set_user_name(phone, detected_name)
             auditor.log_step(
                 "MemoryAnalyst", "extractor_v1",
-                "Name Detection", detected_name
+                "Name Saved", detected_name
             )
 
-        # --- CONTEXT BUILDING ---
-        # --- CONTEXT BUILDING ---
-        # Only inject context for genuinely ambiguous short messages
-        history = get_history(phone)
-        history_text = "\n".join([
-            f"{h['role']}: {h['message']}"
-            for h in history[-4:]
-        ]) if history else ""
-
+        # ── CONTEXT BUILDING (follow-up only for short ambiguous messages) ──
         if is_followup and len(english_message.split()) <= 5:
             english_message = build_context_prompt(phone, english_message)
             auditor.log_step(
@@ -178,26 +226,29 @@ def process_message(message: str, phone: str = "unknown") -> str:
 
         add_to_history(phone, "user", message)
 
-        # --- CLOSURE: Early exit (no Groq needed) ---
+        # ── CLOSURE: Early exit ──
         if intent == "closure":
             name = get_user_name(phone)
-            response = f"🙏 You're welcome{f' {name}' if name else ''}! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
-            auditor.log_step(
-                "System", "termination_v1",
-                "Workflow Closed", response
+            response = (
+                f"🙏 You're welcome{f' {name}' if name else ''}! "
+                f"May Lord Mallikarjuna and Goddess Bhramarambika "
+                f"bless you always. Om Namah Shivaya! 🕉️"
             )
-            final_output = finalize_awp_artifact(
-                response, detected_lang, phone
-            )
+            auditor.log_step("System", "termination_v1", "Workflow Closed", response)
+            final_output = finalize_awp_artifact(response, detected_lang, phone)
             auditor.save_audit_log()
             return final_output
 
-        # --- EXECUTION: Specialist Agent Routing ---
+        # ── SPECIALIST AGENT ROUTING ──
         if intent == "greeting":
             name = get_user_name(phone)
             history = get_history(phone)
             if name and len(history) > 2:
-                response = f"🙏 Welcome back {name}! How can I help you today?\n\nAsk me anything about Srisailam — timings, sevas, trip planning or rituals. 🕉️"
+                response = (
+                    f"🙏 Welcome back {name}! How can I help you today?\n\n"
+                    f"Ask me anything about Srisailam — timings, sevas, "
+                    f"trip planning or rituals. 🕉️"
+                )
             else:
                 response = handle_greeting()
             role = "GreetingAgent"
@@ -208,15 +259,15 @@ def process_message(message: str, phone: str = "unknown") -> str:
 
         elif intent == "journey":
             if needs_more_info(english_message):
-                response = """🙏 I'd love to plan your Srisailam pilgrimage!
-
-Please share:
-- Which city are you travelling from?
-- How many days do you have?
-- How many people in your group?
-- Any special needs (elderly, children)?
-
-I'll create a personalized itinerary! 🛕"""
+                response = (
+                    "🙏 I'd love to plan your Srisailam pilgrimage!\n\n"
+                    "Please share:\n"
+                    "• Which city are you travelling from?\n"
+                    "• How many days do you have?\n"
+                    "• How many people in your group?\n"
+                    "• Any special needs (elderly, children)?\n\n"
+                    "I'll create a personalized itinerary! 🛕"
+                )
             else:
                 response = create_itinerary(english_message, phone)
             role = "JourneyPlanner"
@@ -241,22 +292,17 @@ I'll create a personalized itinerary! 🛕"""
             response = get_unknown_message(detected_lang)
             role = "System"
 
-        # --- LOG + FINALIZE ---
+        # ── LOG + FINALIZE ──
         auditor.log_step(
             role, f"{intent}_agent_v2",
             "Response Generation", response[:100]
         )
-        final_output = finalize_awp_artifact(
-            response, detected_lang, phone
-        )
+        final_output = finalize_awp_artifact(response, detected_lang, phone)
         auditor.save_audit_log()
         return final_output
 
     except Exception as e:
         logger.error(f"❌ AWP Workflow Error: {e}")
-        auditor.log_step(
-            "System", "error_handler",
-            "Exception Occurred", str(e)
-        )
+        auditor.log_step("System", "error_handler", "Exception", str(e))
         auditor.save_audit_log()
         return get_fallback_message(detected_lang)

@@ -1,0 +1,54 @@
+[
+    {
+        "time": "2026-04-15T13:51:16.624482",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:51:06.694863",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Tell me about Rudrabhishekam"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:14.086990",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=ritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:16.624482",
+                "role": "RitualSpecialist",
+                "agent_id": "ritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nEkadasa Rudrabhishekam is a powerful form of Rudrabhishekam at Srisailam, where Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:51:17.586417",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:51:16.639225",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How do I book it?"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:17.584408",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:51:17.585408",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    }
+]

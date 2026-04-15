@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-15T13:50:53.295117",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:50:48.312299",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Is cash required at Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:51.246662",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:53.293669",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Yes, carry sufficient cash at Srisailam. Most counters prefer cash. There is an SBI ATM near the b"
+            }
+        ]
+    }
+]

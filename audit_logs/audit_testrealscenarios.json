@@ -1,0 +1,522 @@
+[
+    {
+        "time": "2026-04-15T13:47:40.678803",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:47:26.378305",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does Srisailam temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:28.093974",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:40.677778",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam temple opens at 5:30 AM, 6:30 AM, or 5:30 AM (depending on the context)."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:47:41.802488",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:47:40.690643",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to reach Srisailam from Hyderabad?"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:40.922295",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:41.800975",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 From Hyderabad, you can reach Srisailam by road via NH765 (approx. 230 km, 4-5 hours). APSRTC buse"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:47:42.043058",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:47:41.811566",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to book darshan tickets?"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:42.041490",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:42.042685",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:47:51.611732",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:47:42.057907",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Which seva should I do for health?"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:43.980312",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=ritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:51.610617",
+                "role": "RitualSpecialist",
+                "agent_id": "ritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nFor good health at Srisailam, I recommend Rudrabhishekam. It removes diseases and b"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:00.418531",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:47:51.626418",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is Rudrabhishekam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:47:53.628719",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=spiritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:00.417488",
+                "role": "SpiritualGuide",
+                "agent_id": "spiritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nRudrabhishekam is a powerful seva at Srisailam temple where the Shivalinga is bathe"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:09.631510",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:00.452446",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What prasadam is available?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:02.804822",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:09.630408",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Vibhuti (sacred ash), panchamrutham, kumkum, and temple laddu are available as prasadam at Srisail"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:13.041542",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:09.640426",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Where to stay in Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:10.387611",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=journey name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:13.040465",
+                "role": "JourneyPlanner",
+                "agent_id": "journey_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I'd love to plan your Srisailam pilgrimage!\n\nPlease share:\n- Which city are you travelling from?\n-"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:22.140305",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:13.059171",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Is cash required at Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:15.290433",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:22.139308",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Yes, carry sufficient cash at Srisailam. Most counters prefer cash. There is an SBI ATM near the b"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:30.950438",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:22.148950",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What to wear to Srisailam temple?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:24.174737",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:30.948807",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Traditional attire is strongly preferred. Men should wear dhoti, and women should wear saree or sa"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:40.953936",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:30.963589",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Are there ATMs near Srisailam temple?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:32.981134",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:40.952353",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Yes, there are ATMs in Srisailam town near the temple. Major banks like SBI, Andhra Bank, and othe"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:46.951100",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:40.966020",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to avoid crowds at Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:42.833000",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:46.949871",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 To avoid crowds at Srisailam, reach the token distribution point well before the scheduled time."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:48:54.921295",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:46.974513",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Free darshan at Srisailam"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:48.921963",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:54.920276",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Yes, free general darshan is available at Srisailam temple. You can join the regular queue at the "
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:01.803256",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:48:54.938461",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is Sparsha Darshan?"
+            },
+            {
+                "timestamp": "2026-04-15T13:48:57.283640",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:01.801242",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Sparsha Darshan is the most sacred and rare form of darshan at Srisailam where devotees get to phy"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:11.078359",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:01.812117",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "When is Maha Shivaratri?"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:04.915903",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=festival name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:11.075358",
+                "role": "InfoAnalyst",
+                "agent_id": "festival_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Maha Shivaratri is celebrated in Feb-Mar (Phalguna)."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:14.317232",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:11.111037",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Nearest railway station to Srisailam"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:13.910271",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=journey name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:14.315121",
+                "role": "JourneyPlanner",
+                "agent_id": "journey_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I'd love to plan your Srisailam pilgrimage!\n\nPlease share:\n- Which city are you travelling from?\n-"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:19.604781",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:14.347045",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Is there free food at Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:17.085215",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:19.599897",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Based on the given context, I don't have specific information about free food at Srisailam."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:28.804340",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:19.681107",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is Annadanam timing?"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:23.823017",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:28.801882",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Annadanam is served from approximately 12:00 PM to 2:00 PM."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:36.740107",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:28.840166",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Can mobile phones go inside temple?"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:30.829662",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:36.740107",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 No, mobile phones are not allowed inside the sanctum sanctorum. You must deposit them in lockers n"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:44.179541",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:36.765270",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What documents needed for darshan?"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:39.175312",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:44.177650",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 For Sparsha Darshan, Aadhaar card is mandatory and the Aadhaar details must match the booking."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:49:50.742040",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:49:44.200131",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the significance of Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:46.246469",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:49:50.739916",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam is considered sacred due to its location on the Nallamala hills, hence the name \"Srisail"
+            }
+        ]
+    }
+]

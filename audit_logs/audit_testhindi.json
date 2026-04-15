@@ -1,0 +1,28 @@
+[
+    {
+        "time": "2026-04-15T13:50:29.497240",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:50:21.895394",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:25.215387",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:50:28.177044",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam temple opens at 5:30 AM and closes at 10:00 PM. It has four sessions: Morning (5:30 AM t"
+            }
+        ]
+    }
+]
