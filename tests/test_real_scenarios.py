@@ -143,7 +143,7 @@ class TestFullPipelineScenarios:
     """Test full pipeline for real devotee questions"""
 
     @pytest.mark.parametrize("message,must_contain", PIPELINE_SCENARIOS)
-    @pytest.mark.parametrize("message,must_contain", PIPELINE_SCENARIOS)
+
     def test_pipeline_response(self, message, must_contain):
         result = process_message(message, "test_real_scenarios")
         result_lower = result.lower()
