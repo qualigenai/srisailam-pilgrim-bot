@@ -1,0 +1,7 @@
+Hi, I'm Ram — AI engineer and founder of qualigenai. I recently built a production WhatsApp chatbot for Srisailam temple pilgrims (multilingual, zero-cost stack, live on GitHub) and an enterprise RAG system with FastAPI + ChromaDB that's in active use.
+I can build [a RAG chatbot / LLM integration / AI automation] for you in [1–2 weeks].
+I've attached a short Loom demo of my RAG system so you can see my work before deciding. Happy to jump on a 20-minute call this week.
+
+For LinkedIn DMs (shorter):
+
+Hi [Name], I'm doing AI consulting now — building RAG chatbots and LLM integrations. Just launched qualigenai.com. Do you know any startup that needs this kind of work? Happy to share a quick demo.

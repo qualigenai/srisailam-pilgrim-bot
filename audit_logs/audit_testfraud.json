@@ -24,5 +24,31 @@
                 "output_preview": "🙏 Yes, beware of fraud booking agents near Srisailam. Book ONLY through the official website srisail"
             }
         ]
+    },
+    {
+        "time": "2026-04-15T18:06:17.263339",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T18:05:38.006752",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Are there fraud agents near Srisailam?"
+            },
+            {
+                "timestamp": "2026-04-15T18:06:17.093916",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T18:06:17.261331",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Sorry, I couldn't process your question. Please visit srisailadevasthanam.org or call 08524-288888"
+            }
+        ]
     }
 ]

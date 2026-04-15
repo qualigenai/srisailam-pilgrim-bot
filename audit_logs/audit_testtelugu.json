@@ -24,5 +24,31 @@
                 "output_preview": "🙏 Srisailam temple opens at 5:30 AM and closes at 10:00 PM. It has 4 sessions: Morning (5:30 AM to 1"
             }
         ]
+    },
+    {
+        "time": "2026-04-15T18:04:22.715726",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T18:03:48.736473",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T18:04:20.968935",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T18:04:21.129735",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Sorry, I couldn't process your question. Please visit srisailadevasthanam.org or call 08524-288888"
+            }
+        ]
     }
 ]

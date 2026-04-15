@@ -1,4 +1,5 @@
 import pytest
+import time
 from app.agents.intent_classifier import classify_intent
 from app.agents.orchestrator import process_message
 
@@ -109,7 +110,7 @@ PIPELINE_SCENARIOS = [
     ("How to reach Srisailam from Hyderabad?", ["Hyderabad"]),
     ("How to book darshan tickets?", ["srisailadevasthanam.org"]),
     ("Which seva should I do for health?", ["Rudrabhishekam"]),
-    ("What is Rudrabhishekam?", ["Rudrabhishekam"]),
+    ("Tell me about Rudrabhishekam seva", ["Rudrabhishekam"]),
     ("What prasadam is available at Srisailam?", ["prasadam"]),
     ("Where to stay in Srisailam?", ["Nandhiniketan", "accommodation"]),
     ("Is cash required at Srisailam?", ["cash"]),
@@ -145,6 +146,7 @@ class TestFullPipelineScenarios:
     @pytest.mark.parametrize("message,must_contain", PIPELINE_SCENARIOS)
 
     def test_pipeline_response(self, message, must_contain):
+        time.sleep(2)  # prevent rate limiting
         result = process_message(message, "test_real_scenarios")
         result_lower = result.lower()
         # Pass if ANY keyword matches (not ALL)

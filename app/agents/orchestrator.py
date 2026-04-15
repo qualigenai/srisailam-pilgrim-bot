@@ -71,7 +71,13 @@ PREPARATION_PHRASES = [
     "तैयारी", "क्या पहनना"
 ]
 
-
+SEVA_INFO_PHRASES = [
+    "what is rudrabhishekam", "what is abhishekam",
+    "what is kumkumarchana", "what is kalyanotsavam",
+    "what is suprabhata", "what is sparsha darshan",
+    "what is ekanta seva", "what is pallaki seva",
+    "what is annadanam", "what is prasadam",
+]
 def analyze_message_combined(message: str, phone: str) -> dict:
     """
     Single Groq call combining intent + name + follow-up detection.

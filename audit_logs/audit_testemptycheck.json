@@ -24,5 +24,31 @@
                 "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
             }
         ]
+    },
+    {
+        "time": "2026-04-15T18:01:58.822283",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T18:01:57.822761",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi"
+            },
+            {
+                "timestamp": "2026-04-15T18:01:58.817958",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=greeting name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T18:01:58.817958",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
     }
 ]
