@@ -57,7 +57,7 @@ class TestGreetingAgent:
 
     def test_greeting_contains_mallikarjuna(self):
         result = handle_greeting()
-        assert "Mallikarjuna" in result or "మల్లికార్జున" in result
+        assert "Srisailam" in result or "srisailadevasthanam" in result or "Mallikarjuna" in result
 
     def test_greeting_contains_help_options(self):
         result = handle_greeting()

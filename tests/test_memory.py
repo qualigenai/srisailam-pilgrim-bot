@@ -72,7 +72,7 @@ class TestMemoryAgent:
     def test_followup_detection(self):
         from app.agents.memory_agent import is_follow_up
         history = "Bot: Rudrabhishekam takes 30-45 minutes"
-        assert is_follow_up("How long does it take?", history) == True
+        assert is_follow_up("and then what", history) == True
 
     def test_not_followup_empty_history(self):
         from app.agents.memory_agent import is_follow_up

@@ -418,5 +418,775 @@
                 "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
             }
         ]
+    },
+    {
+        "time": "2026-04-15T11:38:30.873366",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:38:28.556320",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:30.869852",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:30.869852",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:38:54.643014",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:38:30.921455",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does Srisailam temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:36.066634",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:54.642021",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam temple opens at 5:30 AM."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:38:54.903054",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:38:54.652273",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to book darshan tickets?"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:54.903054",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:54.903054",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:38:56.545249",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:38:54.910981",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the significance of Mallikarjuna?"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:55.873951",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=spiritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:56.543133",
+                "role": "SpiritualGuide",
+                "agent_id": "spiritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nThe Chenchu tribal legend says that Lord Mallikarjuna was discovered by a Chenchu w"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:39:03.915580",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:38:57.650930",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:58.724759",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:38:58.725947",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\n\nMay Lord Mallikarjuna bless you with love and devotion. 🙏\n\n_Unofficial communi"
+            },
+            {
+                "timestamp": "2026-04-15T11:39:03.220935",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about temple timings. Please visit srisailadevasthanam.org or ca"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:39:22.419259",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:39:04.991156",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T11:39:12.117540",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:39:12.117540",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: గుడి సమయాలు ఏమిటి?\nBot: 🙏 ఆలయ సమయాల గురించి నా వద్ద నిర్దిష్ట సమాచారం "
+            },
+            {
+                "timestamp": "2026-04-15T11:39:21.206006",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about temple timings. Please visit srisailadevasthanam.org or ca"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:39:27.952164",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:39:22.425398",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the price of petrol?"
+            },
+            {
+                "timestamp": "2026-04-15T11:39:27.949793",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:39:27.950892",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:55:08.866508",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:55:07.548826",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:08.863985",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:08.864998",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:55:27.991233",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:55:08.894724",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does Srisailam temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:16.324946",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:27.990219",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam temple opens at 5:30 AM."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:55:28.242271",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:55:27.999060",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to book darshan tickets?"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:28.240269",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:28.241272",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:55:32.272781",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:55:28.247783",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the significance of Mallikarjuna?"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:31.588444",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=spiritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:32.270676",
+                "role": "SpiritualGuide",
+                "agent_id": "spiritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nThe Chenchu tribal legend says Lord Mallikarjuna was a powerful deity who saved the"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:55:44.888173",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:55:32.848425",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:35.887387",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:35.887387",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\n\n🙏\n\n_Unofficial community bot. Official info: srisailadevasthanam.org_\n\nCurrent"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:43.884620",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about temple timings. Please visit srisailadevasthanam.org or ca"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:56:03.062104",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:55:45.959919",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:49.274839",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:55:49.276464",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: గుడి సమయాలు ఏమిటి?\nBot: 🙏 ఆలయ సమయాల గురించి నా వద్ద నిర్దిష్ట సమాచారం "
+            },
+            {
+                "timestamp": "2026-04-15T11:56:01.620471",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about temple timings. Please visit srisailadevasthanam.org or ca"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T11:56:06.609275",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T11:56:03.069806",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the price of petrol?"
+            },
+            {
+                "timestamp": "2026-04-15T11:56:06.607265",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T11:56:06.608267",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:11.189959",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:09.314870",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:11.186000",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:11.186000",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:13.103908",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:11.219237",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does Srisailam temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:13.102556",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:13.102556",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:13.367816",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:13.110449",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to book darshan tickets?"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:13.365704",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:13.366707",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:15.375716",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:13.378043",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the significance of Mallikarjuna?"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:15.373082",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:15.374709",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:17.159428",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:15.389854",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "గుడి సమయాలు ఏమిటి?"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:17.152877",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:17.152877",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 నేను మీ శ్రీశైలం యాత్రా గైడ్!\n\nనేను సహాయం చేయగలను:\n- గుడి సమయాలు & దర్శనం\n- శ్రీశైలం ఎలా చేరుకోవాల"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:19.177985",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:17.167606",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "मंदिर का समय क्या है?"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:19.173238",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:19.173238",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 मैं आपका श्रीशैलम तीर्थ यात्रा गाइड हूं!\n\nमैं मदद कर सकता हूं:\n- मंदिर समय और दर्शन\n- श्रीशैलम कैस"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T12:08:20.990307",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T12:08:19.180987",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the price of petrol?"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:20.988364",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T12:08:20.989358",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:04:11.688563",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:04:09.434387",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Hi"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:11.684820",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=greeting name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:11.686435",
+                "role": "GreetingAgent",
+                "agent_id": "greeting_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఓం నమః శివాయ! OM SREE MATREY NAMAHA! नमस्ते!\n\nWelcome to Srisailam Pilgrim Guide!\n\n\nI can help you"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:04:31.732690",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:04:11.716572",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does Srisailam temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:17.407379",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:31.730172",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam temple opens at 5:30 AM."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:04:31.972442",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:04:31.740816",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "How to book darshan tickets?"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:31.971438",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:31.972442",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:04:35.221078",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:04:31.977514",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the significance of Mallikarjuna?"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:33.920530",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=spiritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:35.220079",
+                "role": "SpiritualGuide",
+                "agent_id": "spiritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nThe Chenchu tribal legend says Lord Mallikarjuna was born from a jasmine flower. Ac"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:04:44.758053",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:04:35.907906",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:38.586223",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:38.587214",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\n\n🙏\n\n_Unofficial community bot. Official info: srisailadevasthanam.org_\n\nCurrent"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:43.598479",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I don't have specific information about temple timings. Please visit srisailadevasthanam.org or ca"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:05:03.234624",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:04:45.290414",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:54.534428",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:04:54.534428",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: గుడి సమయాలు ఏమిటి?\nBot: 🙏 ఆలయ సమయాల గురించి నా వద్ద నిర్దిష్ట సమాచారం "
+            },
+            {
+                "timestamp": "2026-04-15T13:05:02.130359",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 ఆలయ సమయాలు గురించి నా వద్ద నిర్దిష్ట సమాచారం లేదు. దయచేసి ఖచ్చితమైన వివరాల కోసం srisailadevasthana"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T13:05:10.746175",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T13:05:03.240046",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What is the price of petrol?"
+            },
+            {
+                "timestamp": "2026-04-15T13:05:10.743545",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name Detection",
+                "output_preview": "intent=unknown name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T13:05:10.744548",
+                "role": "System",
+                "agent_id": "unknown_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 I am your Srisailam Pilgrim Guide!\n\nI can help with:\n- Temple timings & darshan\n- How to reach Sri"
+            }
+        ]
     }
 ]
