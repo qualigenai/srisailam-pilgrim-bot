@@ -38,6 +38,18 @@ def classify_intent(message: str) -> str:
             if "?" not in message and len(message.split()) <= 4:
                 logger.info("🎯 Intent: greeting (deterministic)")
                 return "greeting"
+                # DETERMINISTIC: Directions → temple_info
+            directions_phrases = [
+                "how to reach", "how to get to", "how to go to",
+                "route to", "directions to", "distance to",
+                "nearest railway", "nearest airport", "nearest bus",
+                "ఎలా చేరుకోవాలి", "ఎలా వెళ్ళాలి",
+                "कैसे पहुंचें", "कैसे जाएं"
+            ]
+            if any(phrase in text for phrase in directions_phrases):
+                logger.info("🎯 Intent: temple_info (deterministic - directions)")
+                return "temple_info"
+
 
         # LLM CLASSIFICATION
         intent_list = "\n".join([f"- {k}: {v}" for k, v in INTENTS.items()])
