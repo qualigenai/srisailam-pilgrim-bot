@@ -110,22 +110,21 @@ PIPELINE_SCENARIOS = [
     ("How to book darshan tickets?", ["srisailadevasthanam.org"]),
     ("Which seva should I do for health?", ["Rudrabhishekam"]),
     ("What is Rudrabhishekam?", ["Rudrabhishekam"]),
-    ("What prasadam is available?", ["prasadam"]),
-    ("Where to stay in Srisailam?", ["Nandhiniketan", "accommodation"]),  # flexible
+    ("What prasadam is available at Srisailam?", ["prasadam"]),
+    ("Where to stay in Srisailam?", ["Nandhiniketan", "accommodation"]),
     ("Is cash required at Srisailam?", ["cash"]),
     ("What to wear to Srisailam temple?", ["traditional"]),
     ("Are there ATMs near Srisailam temple?", ["ATM"]),
-    ("How to avoid crowds at Srisailam?", ["morning", "crowd"]),          # flexible
-    ("Free darshan at Srisailam", ["free", "darshan"]),
-    ("What is Sparsha Darshan?", ["Sparsha"]),
-    ("When is Maha Shivaratri?", ["Shivaratri", "Feb"]),
-    ("Nearest railway station to Srisailam", ["Markapur"]),
-    ("Is there free food at Srisailam?", ["Annadanam", "free"]),          # flexible
-    ("What is Annadanam timing?", ["Annadanam"]),
-    ("Can mobile phones go inside temple?", ["mobile"]),
-    ("What documents needed for darshan?", ["Aadhaar"]),
-    ("What is the significance of Srisailam?", ["Srisailam", "sacred"])
-
+    ("How to avoid crowds at Srisailam?", ["morning", "crowd"]),
+    ("Free darshan at Srisailam temple", ["free", "darshan"]),
+    ("What is Sparsha Darshan at Srisailam?", ["Sparsha"]),
+    ("When is Maha Shivaratri celebration?", ["Shivaratri", "Feb"]),
+    ("Nearest railway station to Srisailam temple", ["Markapur"]),
+    ("Is there free food at Srisailam temple?", ["Annadanam", "free"]),
+    ("What time is Annadanam served?", ["Annadanam"]),
+    ("Can mobile phones go inside Srisailam temple?", ["mobile"]),
+    ("What documents needed for Srisailam darshan?", ["Aadhaar"]),
+    ("What is the significance of Srisailam temple?", ["Srisailam", "sacred"]),
   ]
 class TestIntentClassification:
     """Test intent classification for all real devotee scenarios"""
