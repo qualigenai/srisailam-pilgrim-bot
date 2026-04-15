@@ -22,6 +22,10 @@ def classify_intent(message: str) -> str:
     try:
         # DETERMINISTIC: Closure check (saves Groq call)
         text = message.lower().strip()
+        # FIRST CHECK — directions always = temple_info
+        if any(p in text for p in ["how to reach", "how to get to", "directions to", "ఎలా చేరుకోవాలి", "कैसे पहुंचें"]):
+            logger.info("🎯 Intent: temple_info (directions)")
+            return "temple_info"
         closure_phrases = [
             "thanks", "thank you", "ok thanks", "okay thanks",
             "bye", "goodbye", "dhanyavadalu", "shukriya",

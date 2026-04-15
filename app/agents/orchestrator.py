@@ -41,6 +41,11 @@ def analyze_message_combined(message: str, phone: str) -> dict:
 
     # Deterministic closure check — no Groq needed
     text = message.lower().strip()
+
+    # FIRST — directions
+    if any(p in text for p in ["how to reach", "how to get to", "directions to"]):
+        return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+
     closure_phrases = [
         "thanks", "thank you", "ok", "okay", "bye",
         "dhanyavadalu", "shukriya", "👍"
@@ -51,7 +56,9 @@ def analyze_message_combined(message: str, phone: str) -> dict:
             "NAME": "NONE",
             "IS_FOLLOWUP": "NO"
         }
-
+    # Deterministic directions
+    if any(p in text for p in ["how to reach", "how to get to", "directions to", "ఎలా చేరుకోవాలి", "कैसे पहुंचें"]):
+        return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
     try:
         prompt = f"""Analyze this message for Srisailam temple WhatsApp bot.
 
