@@ -34,20 +34,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov
 
-      - name: Set environment variables
-        env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_WHATSAPP_NUMBER: ${{ secrets.TWILIO_WHATSAPP_NUMBER }}
-          WEBHOOK_VERIFY_TOKEN: ${{ secrets.WEBHOOK_VERIFY_TOKEN }}
-          APP_ENV: test
-          LOG_LEVEL: WARNING
-        run: echo "Environment variables set"
-
       - name: Run unit tests
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.SRISAILAM_CI }}
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_WHATSAPP_NUMBER: ${{ secrets.TWILIO_WHATSAPP_NUMBER }}
@@ -64,7 +53,7 @@ jobs:
 
       - name: Run integration tests
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.SRISAILAM_CI }}
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_WHATSAPP_NUMBER: ${{ secrets.TWILIO_WHATSAPP_NUMBER }}
@@ -80,7 +69,7 @@ jobs:
 
       - name: Run real scenario tests
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.SRISAILAM_CI }}
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_WHATSAPP_NUMBER: ${{ secrets.TWILIO_WHATSAPP_NUMBER }}
@@ -94,8 +83,7 @@ jobs:
 
       - name: Generate coverage report
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_API_KEY_TEST: ${{ secrets.GROQ_API_KEY_TEST }}
+          GROQ_API_KEY: ${{ secrets.SRISAILAM_CI }}
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_WHATSAPP_NUMBER: ${{ secrets.TWILIO_WHATSAPP_NUMBER }}
@@ -103,12 +91,6 @@ jobs:
           APP_ENV: test
           LOG_LEVEL: WARNING
         run: |
-          
-          pytest tests/test_real_scenarios.py \
-           -v --tb=short \
-           --junitxml=reports/scenario_tests.xml \
-           -p no:randomly
-          
           pytest tests/ \
                  --cov=app \
                  --cov-report=term-missing \
