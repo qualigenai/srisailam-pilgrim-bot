@@ -11,7 +11,7 @@ INTENTS = {
     "journey": "Plan a trip, coming from city with number of days, itinerary request, family of X for X days",
     "ritual": "Which seva, what seva, seva for health/wealth/family, which puja, recommend seva, ఏ సేవ",
     "spiritual": "Mantra meaning, prayer significance, how to prepare, checklist, devotional guidance",
-    "temple_info": "Temple timings, directions, how to reach, distance, bus/train, accommodation, prasadam, dress code, facilities, significance, darshan types",
+    "temple_info": "Temple timings, directions, how to reach, distance, bus/train, accommodation, prasadam, dress code, facilities, significance, darshan types, entry fee, queue",
     "booking": "How to book, booking process, online booking, ticket booking, reservation",
     "festival": "Festival dates, Maha Shivaratri, Karthika Masam, Pradosha, Monday special, auspicious days",
     "unknown": "Unrelated to Srisailam temple"
@@ -26,7 +26,6 @@ CLOSURE_PHRASES = [
 ]
 
 GREETING_PHRASES = [
-    "hi", "hello", "hey", "namaste",
     "jai mallikarjuna", "jai shiva", "jai shiv",
     "om namah shivaya", "om namaha shivaya",
     "har har mahadev", "har har mahade",
@@ -35,6 +34,8 @@ GREETING_PHRASES = [
     "नमस्ते", "जय शिव", "हर हर महादेव",
     "jai mallikarjuna swamy", "jai bhramarambika"
 ]
+
+GREETING_SINGLE_WORDS = ["hi", "hello", "hey", "namaste"]
 
 DIRECTIONS_PHRASES = [
     "how to reach", "how to get to", "how to go to",
@@ -79,6 +80,17 @@ PREPARATION_PHRASES = [
     "तैयारी", "क्या पहनना", "क्या लाना"
 ]
 
+TEMPLE_KEYWORDS = [
+    "timings", "timing", "temple time", "open time",
+    "darshan time", "puja time", "temple hours",
+    "prasadam", "annadanam", "facilities",
+    "entry fee", "ticket", "queue", "crowd",
+    "significance", "history", "about temple",
+    "dress code", "what to wear",
+    "సమయాలు", "సమయం", "దర్శనం సమయం", "ప్రవేశం",
+    "समय", "दर्शन समय", "मंदिर", "प्रवेश"
+]
+
 
 def classify_intent(message: str) -> str:
     try:
@@ -91,8 +103,12 @@ def classify_intent(message: str) -> str:
 
         # ── 2. GREETING (deterministic) ──
         text_words = text.split()
-        if any(p == text or p in text_words or text.startswith(p + " ") for p in GREETING_PHRASES):
+        if any(p in text for p in GREETING_PHRASES):
             if "?" not in message and len(message.split()) <= 5:
+                logger.info("🎯 Intent: greeting (deterministic)")
+                return "greeting"
+        if text_words and text_words[0] in GREETING_SINGLE_WORDS:
+            if "?" not in message and len(message.split()) <= 4:
                 logger.info("🎯 Intent: greeting (deterministic)")
                 return "greeting"
 
@@ -116,7 +132,12 @@ def classify_intent(message: str) -> str:
             logger.info("🎯 Intent: spiritual (deterministic - preparation)")
             return "spiritual"
 
-        # ── 7. LLM CLASSIFICATION ──
+        # ── 7. TEMPLE KEYWORDS → temple_info (deterministic) ──
+        if any(p in text for p in TEMPLE_KEYWORDS):
+            logger.info("🎯 Intent: temple_info (deterministic - temple keyword)")
+            return "temple_info"
+
+        # ── 8. LLM CLASSIFICATION ──
         intent_list = "\n".join([f"- {k}: {v}" for k, v in INTENTS.items()])
 
         prompt = f"""Classify this message for Srisailam temple WhatsApp bot.
@@ -127,14 +148,16 @@ Intent options:
 {intent_list}
 
 RULES:
-1. transport/distance/bus/train/route queries → temple_info
-2. which seva / puja for intention → ritual
-3. plan trip with days/city/group → journey
-4. mantra/prayer meaning → spiritual
-5. how to book → booking
-6. festival/auspicious day → festival
-7. greeting only → greeting
-8. thank you/bye → closure
+1. ANY short query about temple, timings, darshan → temple_info
+2. transport/distance/bus/train/route queries → temple_info
+3. which seva / puja for intention → ritual
+4. plan trip with days/city/group → journey
+5. mantra/prayer meaning → spiritual
+6. how to book → booking
+7. festival/auspicious day → festival
+8. greeting words only → greeting
+9. thank you/bye → closure
+10. NEVER return unknown for temple-related queries
 
 Reply with ONLY the intent name. No explanation."""
 
@@ -149,8 +172,8 @@ Reply with ONLY the intent name. No explanation."""
         intent = intent.replace(".", "").replace(",", "").strip()
 
         if intent not in INTENTS:
-            logger.warning(f"Unknown intent: {intent} — defaulting to unknown")
-            intent = "unknown"
+            logger.warning(f"Unknown intent: {intent} — defaulting to temple_info")
+            intent = "temple_info"
 
         logger.info(f"🎯 Intent: {intent}")
         return intent

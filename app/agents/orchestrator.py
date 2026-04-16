@@ -30,12 +30,13 @@ CLOSURE_PHRASES = [
 ]
 
 GREETING_PHRASES = [
-    "hi", "hello", "hey", "namaste",
     "jai mallikarjuna", "jai shiva",
     "om namah shivaya", "har har mahadev",
     "హర హర మహాదేవ్", "నమస్కారం", "నమస్తే",
     "नमस्ते", "जय शिव", "हर हर महादेव"
 ]
+
+GREETING_SINGLE_WORDS = ["hi", "hello", "hey", "namaste"]
 
 DIRECTIONS_PHRASES = [
     "how to reach", "how to get to", "route to",
@@ -71,13 +72,18 @@ PREPARATION_PHRASES = [
     "तैयारी", "क्या पहनना"
 ]
 
-SEVA_INFO_PHRASES = [
-    "what is rudrabhishekam", "what is abhishekam",
-    "what is kumkumarchana", "what is kalyanotsavam",
-    "what is suprabhata", "what is sparsha darshan",
-    "what is ekanta seva", "what is pallaki seva",
-    "what is annadanam", "what is prasadam",
+TEMPLE_KEYWORDS = [
+    "timings", "timing", "temple time", "open time",
+    "darshan time", "puja time", "temple hours",
+    "prasadam", "annadanam", "facilities",
+    "entry fee", "ticket", "queue", "crowd",
+    "significance", "history", "about temple",
+    "dress code", "what to wear",
+    "సమయాలు", "సమయం", "దర్శనం సమయం",
+    "समय", "दर्शन समय", "मंदिर"
 ]
+
+
 def analyze_message_combined(message: str, phone: str) -> dict:
     """
     Single Groq call combining intent + name + follow-up detection.
@@ -88,7 +94,9 @@ def analyze_message_combined(message: str, phone: str) -> dict:
     client = Groq(api_key=GROQ_API_KEY)
 
     text = message.lower().strip()
+    text_words = text.split()
 
+    # Get history for context
     history = get_history(phone)
     history_text = "\n".join([
         f"{h['role']}: {h['message']}"
@@ -100,9 +108,11 @@ def analyze_message_combined(message: str, phone: str) -> dict:
         return {"INTENT": "closure", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
 
     # ── 2. GREETING (deterministic) ──
-    text_words = text.split()
-    if any(p == text or p in text_words or text.startswith(p + " ") for p in GREETING_PHRASES):
+    if any(p in text for p in GREETING_PHRASES):
         if "?" not in message and len(message.split()) <= 5:
+            return {"INTENT": "greeting", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+    if text_words and text_words[0] in GREETING_SINGLE_WORDS:
+        if "?" not in message and len(message.split()) <= 4:
             return {"INTENT": "greeting", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
 
     # ── 3. DIRECTIONS → temple_info (deterministic) ──
@@ -121,12 +131,16 @@ def analyze_message_combined(message: str, phone: str) -> dict:
     if any(p in text for p in PREPARATION_PHRASES):
         return {"INTENT": "spiritual", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
 
-    # ── 7. LLM combined analysis ──
+    # ── 7. TEMPLE KEYWORDS → temple_info (deterministic) ──
+    if any(p in text for p in TEMPLE_KEYWORDS):
+        return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+
+    # ── 8. LLM combined analysis ──
     try:
         prompt = f"""Analyze this message for Srisailam temple WhatsApp bot.
 
 Message: "{message}"
-Recent chat: {history_text}
+Recent conversation: {history_text}
 
 Reply in EXACTLY this format:
 INTENT: <greeting|journey|spiritual|ritual|temple_info|booking|festival|closure|unknown>
@@ -134,13 +148,15 @@ NAME: <person name if introduced, else NONE>
 IS_FOLLOWUP: <YES if refers to previous conversation topic, else NO>
 
 RULES:
-1. transport/distance/bus/train → temple_info
-2. plan trip with days + city → journey
-3. which seva / puja → ritual
-4. mantra/prepare/checklist → spiritual
-5. timings/facilities/darshan info → temple_info
-6. how to book → booking
-7. festival/auspicious day → festival"""
+1. ANY short temple query → temple_info
+2. transport/distance/bus/train → temple_info
+3. plan trip with days + city → journey
+4. which seva / puja → ritual
+5. mantra/prepare/checklist → spiritual
+6. timings/facilities/darshan info → temple_info
+7. how to book → booking
+8. festival/auspicious day → festival
+9. NEVER return unknown for temple-related queries"""
 
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
@@ -157,17 +173,21 @@ RULES:
                 result[key.strip()] = val.strip()
 
         if "INTENT" not in result:
-            result["INTENT"] = "unknown"
+            result["INTENT"] = "temple_info"
         if "NAME" not in result:
             result["NAME"] = "NONE"
         if "IS_FOLLOWUP" not in result:
             result["IS_FOLLOWUP"] = "NO"
 
+        # Safety net — never return unknown for short messages
+        if result["INTENT"] == "unknown" and len(message.split()) <= 5:
+            result["INTENT"] = "temple_info"
+
         return result
 
     except Exception as e:
         logger.error(f"Combined analysis error: {e}")
-        return {"INTENT": "unknown", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+        return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
 
 
 def process_message(message: str, phone: str = "unknown") -> str:
@@ -205,7 +225,7 @@ def process_message(message: str, phone: str = "unknown") -> str:
 
         # ── COMBINED ANALYSIS (1 Groq call) ──
         analysis = analyze_message_combined(english_message, phone)
-        intent = analysis.get("INTENT", "unknown")
+        intent = analysis.get("INTENT", "temple_info")
         detected_name = analysis.get("NAME", "NONE")
         is_followup = analysis.get("IS_FOLLOWUP", "NO") == "YES"
 
@@ -222,7 +242,7 @@ def process_message(message: str, phone: str = "unknown") -> str:
                 "Name Saved", detected_name
             )
 
-        # ── CONTEXT BUILDING (follow-up only for short ambiguous messages) ──
+        # ── CONTEXT BUILDING ──
         if is_followup and len(english_message.split()) <= 5:
             english_message = build_context_prompt(phone, english_message)
             auditor.log_step(
@@ -295,8 +315,10 @@ def process_message(message: str, phone: str = "unknown") -> str:
             role = "InfoAnalyst"
 
         else:
-            response = get_unknown_message(detected_lang)
-            role = "System"
+            # Safety net — unknown falls back to RAG
+            logger.warning(f"⚠️ Unknown intent for: {english_message} — using RAG")
+            response = answer_question(english_message)
+            role = "InfoAnalyst"
 
         # ── LOG + FINALIZE ──
         auditor.log_step(

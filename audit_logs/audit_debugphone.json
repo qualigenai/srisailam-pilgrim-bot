@@ -1,0 +1,224 @@
+[
+    {
+        "time": "2026-04-15T19:01:36.753162",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:01:15.158352",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:16.631236",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:36.753162",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 According to the context, Srisailam temple opens at 5:30 AM."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:01:40.028472",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:01:36.761039",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Which seva for health?"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:37.772900",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=ritual name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:37.772900",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\nPilgrim: What time does temple open?\nBot: 🙏 According to the context, Srisailam"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:40.026382",
+                "role": "RitualSpecialist",
+                "agent_id": "ritual_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Dear Devotee,\n\nFor good health at Srisailam, I highly recommend Rudrabhishekam. It's a powerful se"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:01:43.101367",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:01:40.055857",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Coming from Hyderabad, 2 days"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:41.054690",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=journey name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:41.056203",
+                "role": "MemoryAnalyst",
+                "agent_id": "context_v1",
+                "action": "Context Enrichment",
+                "output_preview": "Recent conversation:\n\nTo enhance the seva's benefits, recite the Sri Rudram mantra: \"Om tatpurushaya"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:43.100374",
+                "role": "JourneyPlanner",
+                "agent_id": "journey_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "Dear Devotee 👋\n2-day Srisailam Pilgrimage from Hyderabad 🚗\n\nDay 1: \n- 8:00 AM: Reach Srisailam ( app"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:01:43.630412",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:01:43.117067",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Thank you"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:43.627641",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:01:43.629350",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:03:52.739730",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:02:52.842345",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What time does temple open?"
+            },
+            {
+                "timestamp": "2026-04-15T19:02:54.173672",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:03:52.737726",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 The temple opening time is 6:30 AM for morning darshan."
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:03:53.175848",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:03:52.752129",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Thank you"
+            },
+            {
+                "timestamp": "2026-04-15T19:03:53.174351",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:03:53.174351",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:18:18.620272",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:17:58.238134",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "What are the Temple timings?"
+            },
+            {
+                "timestamp": "2026-04-15T19:17:59.525882",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=temple_info name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:18:18.618756",
+                "role": "InfoAnalyst",
+                "agent_id": "temple_info_agent_v2",
+                "action": "Response Generation",
+                "output_preview": "🙏 Srisailam temple opens at 5:30 AM and closes at 10:00 PM. It has four sessions: Morning (5:30 AM t"
+            }
+        ]
+    },
+    {
+        "time": "2026-04-15T19:18:19.121885",
+        "steps": [
+            {
+                "timestamp": "2026-04-15T19:18:18.649049",
+                "role": "LinguisticExpert",
+                "agent_id": "detector_v1",
+                "action": "Translation to EN",
+                "output_preview": "Thank you"
+            },
+            {
+                "timestamp": "2026-04-15T19:18:19.121597",
+                "role": "AnalysisAgent",
+                "agent_id": "combined_v2",
+                "action": "Intent + Name",
+                "output_preview": "intent=closure name=NONE"
+            },
+            {
+                "timestamp": "2026-04-15T19:18:19.121885",
+                "role": "System",
+                "agent_id": "termination_v1",
+                "action": "Workflow Closed",
+                "output_preview": "🙏 You're welcome! May Lord Mallikarjuna and Goddess Bhramarambika bless you always. Om Namah Shivaya! 🕉️"
+            }
+        ]
+    }
+]
