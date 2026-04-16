@@ -91,6 +91,9 @@ def get_ritual_flow(phone: str) -> Dict:
 def set_ritual_flow(phone: str, state: Dict):
     get_session(phone)["ritual_flow"] = state
 
+def clear_ritual_flow(phone: str):
+    get_session(phone)["ritual_flow"] = {}
+    logger.info(f"Ritual flow cleared for {phone}")
 
 def clear_session(phone: str):
     if phone in sessions:
