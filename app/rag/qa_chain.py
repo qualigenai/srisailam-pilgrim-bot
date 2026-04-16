@@ -25,10 +25,35 @@ Never make up information."""
 
 FALLBACK_RESPONSE = "🙏 Temple information is temporarily unavailable. Please visit srisailadevasthanam.org or call 08524-288888 for accurate details."
 
+
+def extract_search_query(question: str) -> str:
+    """
+    Extracts only the current user message for RAG search.
+    Strips away conversation history/context that was injected
+    by build_context_prompt in memory_agent.py.
+    """
+    # If context was injected, extract only "Current message:" part
+    if "Current message:" in question:
+        parts = question.split("Current message:")
+        clean = parts[-1].strip()
+        # Remove any trailing instructions
+        if "\n" in clean:
+            clean = clean.split("\n")[0].strip()
+        return clean
+
+    # If "Based on the conversation" injected — strip it
+    if "Based on the conversation" in question:
+        parts = question.split("Based on the conversation")
+        # Take only the part before this instruction
+        return parts[0].strip()
+
+    # No context injection — return as-is
+    return question.strip()
+
+
 def _call_groq(messages: list, retries: int = 2, wait: int = 5) -> str:
     """
     Calls Groq API with retry logic for 429 rate limit errors.
-    Retries up to `retries` times with `wait` seconds between attempts.
     """
     for attempt in range(1, retries + 1):
         try:
@@ -64,7 +89,7 @@ def _call_groq(messages: list, retries: int = 2, wait: int = 5) -> str:
                     time.sleep(wait)
                     continue
                 else:
-                    logger.error("❌ Groq service unavailable — all retries exhausted")
+                    logger.error("❌ Groq unavailable — all retries exhausted")
                     return None
 
             else:
@@ -76,13 +101,16 @@ def _call_groq(messages: list, retries: int = 2, wait: int = 5) -> str:
 
 def answer_question(question: str) -> str:
     try:
-        logger.info(f"🔍 Hybrid search for: {question}")
+        # ── Extract clean query for RAG search ──
+        search_query = extract_search_query(question)
+        logger.info(f"🔍 Hybrid search for: {search_query}")
 
-        # Use hybrid retrieval (Vector + BM25)
-        relevant_chunks = search_hybrid(question, top_k=3)
+        # ── Use clean query for RAG retrieval ──
+        relevant_chunks = search_hybrid(search_query, top_k=3)
         context = "\n\n".join(relevant_chunks)
         logger.info(f"📚 Found {len(relevant_chunks)} chunks via hybrid search")
 
+        # ── Use full question (with history) for LLM answer generation ──
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
             {
@@ -105,7 +133,7 @@ IMPORTANT RULES:
         answer = _call_groq(messages)
 
         if answer is None:
-            logger.warning("⚠️ Groq unavailable — returning fallback response")
+            logger.warning("⚠️ Groq unavailable — returning fallback")
             return FALLBACK_RESPONSE
 
         logger.info("✅ Answer generated via Hybrid RAG")
