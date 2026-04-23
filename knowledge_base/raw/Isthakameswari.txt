@@ -1,0 +1,64 @@
+import pandas as pd
+from datetime import datetime
+
+# Generating a clean TXT file for the user
+content = """KNOWLEDGE BASE: SRI ISTHAKAMESWARI DEVI TEMPLE, SRISAILAM
+Last Updated: April 2026
+
+1. OVERVIEW AND SPIRITUAL SIGNIFICANCE
+The Sri Isthakameswari Devi Temple is an ancient Hindu shrine located deep within the Nallamala Forest, specifically within the Nagarjunasagar-Srisailam Tiger Reserve (NSTR) in Andhra Pradesh, India.
+
+* Deity: Goddess Isthakameswari, an incarnation of Goddess Parvati.
+* Etymology: "Istha" (Desired) + "Kama" (Wishes) + "Eswari" (Goddess). She is known as the "Goddess who fulfills all heartfelt desires."
+* Unique Miracle: The temple is world-renowned for its stone idol. Despite being carved from black stone, the forehead of the deity feels as soft as human skin. Pilgrims are permitted to touch the forehead while applying Kumkum (vermilion) to experience this phenomenon firsthand.
+
+2. HISTORY AND ARCHITECTURE
+* Timeline: The temple is estimated to date back to the 8th to 10th century.
+* Dynastic Origin: Historical records associate the temple's patronage with the Rashtrakutas and later the Vijayanagara Empire.
+* Structure: It is a cave temple located in a secluded valley. The approach involves descending a few steps into a natural rock formation where the deity resides. Nearby, a small stream and a shrine for Lord Ganesha greet pilgrims before they reach the main sanctum.
+
+3. LOGISTICS AND THE "NEKKANTI JUNGLE RIDE"
+Access to the temple is strictly regulated by the Andhra Pradesh Forest Department. Private vehicles are prohibited beyond a certain point.
+
+* Mode of Transport: Only Forest Department-approved 4x4 Jeeps (Nekkanti Jungle Ride) can traverse the rugged terrain.
+* Distance: Approximately 21 km from Srisailam. The ride consists of 10 km on a state highway (SH8) and 11 km of extreme off-roading through dense jungle.
+* Ticket Price: ₹1000 per person (for adults and children above 8 years).
+* Capacity: Each jeep accommodates approximately 8 passengers.
+
+4. BOOKING PROCESS (2026 UPDATED)
+Due to high demand and environmental protection, there is a strict daily quota for visitors.
+
+A. ONLINE BOOKING (NSTR Official Portal)
+* Quota: 16 tickets per day are released online.
+* Timeline: Slots open 15 days in advance.
+* Website: istakameswari.nstr.co.in
+
+B. OFFLINE BOOKING (Counter at Shikharam)
+* Quota: 104 tickets per day are available offline.
+* Counter Location: The Nekkanti Jungle Ride counter is located at Shikharam (the highest point of Srisailam).
+* The Waiting Process: Tickets are issued for the following day starting at 8:00 AM. However, due to extreme demand, a physical queue typically starts forming by 2:00 AM or 3:00 AM.
+* Limit: Maximum of 3 tickets per person in the queue. Identity proof (Aadhaar Card) is mandatory.
+
+5. VISITOR GUIDELINES AND SAFETY
+* Operating Hours: The ride typically starts around 8:30 AM – 9:00 AM and concludes by 2:00 PM.
+* Physical Constraints: The off-roading is extremely violent and bumpy. Pregnant women, elderly people with fragile health, and individuals with spinal/back issues (slip discs) are strongly advised against this journey.
+* Dress Code: Traditional Indian attire is expected.
+* Eco-Rules: The temple is in a Zero Plastic Zone. Carrying plastic bags, bottles, or littering is a punishable offense.
+* Seasonal Closure: The temple and forest ride are usually closed during the Monsoon season (July to September) due to impassable muddy tracks and tiger breeding cycles.
+
+6. CHATBOT FAQ SNIPPETS
+Q: Can I drive my own car to the temple?
+A: No. Private vehicles are not allowed into the core tiger reserve area. You must use the official Forest Dept Jeeps from Shikharam.
+
+Q: Is food available at the temple?
+A: There are no commercial hotels. However, local donors often provide basic "Annadanam" (free meals) near the temple site. It is recommended to carry your own water in reusable bottles.
+
+Q: What is the best time to visit?
+A: October to February offers the best weather and lush greenery.
+
+Q: How do I prove my visit?
+A: Traditionally, pilgrims visit the Sakshi Ganapati temple in Srisailam to "record" their visit to the holy site, which includes the Isthakameswari pilgrimage.
+"""
+
+with open("istakameswari_temple_kb.txt", "w") as f:
+    f.write(content)
