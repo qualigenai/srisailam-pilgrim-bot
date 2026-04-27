@@ -145,7 +145,7 @@ def answer_question(question: str) -> str:
         search_query = extract_search_query(question)
 
         # ── Multi-intent parallel RAG search ──
-        context = search_multi_intent(search_query, top_k=3)
+        context = search_multi_intent(search_query)
 
         # ── LLM receives full question + merged context ──
         messages = [
