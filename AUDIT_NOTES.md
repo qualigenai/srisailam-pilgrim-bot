@@ -14,6 +14,7 @@ Auditor: Rambhupal Boreddy
 | `aa279c6` | `app/rag/qa_chain.py:148` | Stale `top_k` kwarg passed to `search_multi_intent()` — caused TypeError on every RAG call, silently swallowed by bare `except Exception`, returned generic fallback to all users |
 | `294944f` | `app/agents/orchestrator.py:188` | `analyze_message_combined()` caught all exceptions and returned `{"INTENT": "temple_info", ...}` — Groq API failures were indistinguishable from legitimate temple_info routing; replaced with typed `AnalysisError` |
 | `ff3bed7` | `app/agents/intent_classifier.py:181` | `classify_intent()` caught all exceptions and returned `"unknown"` — Groq failures routed silently to RAG fallback; replaced with typed `IntentClassificationError` |
+| (this commit) | `.gitignore` / `.idea/` | Verified `.idea/` folder is not tracked by git (`git rm --cached .idea/` returned no matches). `.gitignore` already contains `.idea/` entry. Deferred item resolved by verification, no untracking action was needed. |
 
 ---
 
@@ -30,8 +31,6 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 - **`vectorstore.py:20` — bare `except:`** Silences the error when deleting a non-existent Chroma collection before rebuild. Intent is correct, but bare `except` is too broad. Should be `except Exception`.
 
 - **Trailing newlines** — several files lack a trailing newline; git flags them on every diff. Cosmetic, low priority.
-
-- **`.idea/` in version control** — IDE-specific folder is tracked in git. Needs a `.gitignore` entry and `git rm -r --cached .idea/`.
 
 ---
 
