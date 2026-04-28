@@ -5,6 +5,10 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
+
+class IntentClassificationError(Exception):
+    """Raised when classify_intent() fails to call or parse the Groq API."""
+
 INTENTS = {
     "greeting": "Hello, hi, namaste, jai shiva, jai mallikarjuna, good morning, నమస్కారం, నమస్తే, हेलो or any greeting",
     "closure": "Thank you, thanks, bye, okay done, dhanyavadalu, సరే, ధన్యవాదాలు",
@@ -180,4 +184,4 @@ Reply with ONLY the intent name. No explanation."""
 
     except Exception as e:
         logger.error(f"❌ Intent error: {e}")
-        return "unknown"
+        raise IntentClassificationError(str(e)) from e
