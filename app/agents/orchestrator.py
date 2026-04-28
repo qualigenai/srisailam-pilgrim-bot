@@ -21,6 +21,11 @@ from app.utils.awp_helpers import finalize_awp_artifact
 
 logger = logging.getLogger(__name__)
 
+
+class AnalysisError(Exception):
+    """Raised when analyze_message_combined() fails to call or parse the Groq API."""
+
+
 # ── Shared deterministic phrase lists ───────────────────────
 
 CLOSURE_PHRASES = [
@@ -187,7 +192,7 @@ RULES:
 
     except Exception as e:
         logger.error(f"Combined analysis error: {e}")
-        return {"INTENT": "temple_info", "NAME": "NONE", "IS_FOLLOWUP": "NO"}
+        raise AnalysisError(str(e)) from e
 
 
 def process_message(message: str, phone: str = "unknown") -> str:
@@ -329,6 +334,11 @@ def process_message(message: str, phone: str = "unknown") -> str:
         auditor.save_audit_log()
         return final_output
 
+    except AnalysisError as e:
+        logger.error(f"Analysis agent failed — degrading gracefully: {e}")
+        auditor.log_step("AnalysisAgent", "combined_v2", "Analysis Failed", str(e))
+        auditor.save_audit_log()
+        return get_fallback_message(detected_lang)
     except Exception as e:
         logger.error(f"❌ AWP Workflow Error: {e}")
         auditor.log_step("System", "error_handler", "Exception", str(e))
