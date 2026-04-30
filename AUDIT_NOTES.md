@@ -17,6 +17,7 @@ Auditor: Rambhupal Boreddy
 | (this commit) | `.gitignore` / `.idea/` | Verified `.idea/` folder is not tracked by git (`git rm --cached .idea/` returned no matches). `.gitignore` already contains `.idea/` entry. Deferred item resolved by verification, no untracking action was needed. |
 | `42bf45f` | `app/agents/orchestrator.py:144` | `analyze_message_combined()` prompt split into `system` + `user` roles; current message bounded in `<current_message>` tags, history in `<conversation_history>` tags; NAME/IS_FOLLOWUP scoped explicitly to current message to prevent history leakage |
 | `3615c7a` | `app/agents/spiritual_agent.py:78` | `detect_intention()` prompt split into `system` + `user` roles; instruction text moved to `system`, raw message is the entire `user` turn |
+| `48ed3ea` | `app/agents/spiritual_agent.py:97` | `detect_intention()` silently returned `"general"` on exception; replaced with typed `IntentionDetectionError`; targeted `except IntentionDetectionError as e` with `logger.warning` added in `handle_seva_recommendation` before the blanket `except Exception` |
 
 ---
 
@@ -42,7 +43,7 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 - **`orchestrator.py` — duplicated phrase lists** CLOSURE_PHRASES and GREETING_PHRASES are duplicated between `orchestrator.py` and `intent_classifier.py`.
 
-- **`spiritual_agent.py`** — review `SPIRITUAL_SYSTEM_PROMPT`; `detect_intention()` silently returns `"general"` on exception (same pattern as the orchestrator silent-error issues, not yet typed).
+- **`spiritual_agent.py`** — review `SPIRITUAL_SYSTEM_PROMPT`.
 
 - **`journey_planner_agent.py`** — review `PLANNER_SYSTEM_PROMPT`; `extract_journey_details()` returns `{}` on failure (untyped); compression re-prompt is inlined rather than structured.
 
