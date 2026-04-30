@@ -15,6 +15,7 @@ Auditor: Rambhupal Boreddy
 | `294944f` | `app/agents/orchestrator.py:188` | `analyze_message_combined()` caught all exceptions and returned `{"INTENT": "temple_info", ...}` — Groq API failures were indistinguishable from legitimate temple_info routing; replaced with typed `AnalysisError` |
 | `ff3bed7` | `app/agents/intent_classifier.py:181` | `classify_intent()` caught all exceptions and returned `"unknown"` — Groq failures routed silently to RAG fallback; replaced with typed `IntentClassificationError` |
 | (this commit) | `.gitignore` / `.idea/` | Verified `.idea/` folder is not tracked by git (`git rm --cached .idea/` returned no matches). `.gitignore` already contains `.idea/` entry. Deferred item resolved by verification, no untracking action was needed. |
+| `42bf45f` | `app/agents/orchestrator.py:144` | `analyze_message_combined()` prompt split into `system` + `user` roles; current message bounded in `<current_message>` tags, history in `<conversation_history>` tags; NAME/IS_FOLLOWUP scoped explicitly to current message to prevent history leakage |
 
 ---
 
@@ -38,7 +39,7 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 - **`ritual_flow.py` — broken booking handoff** Step 3 (`awaiting_booking_confirm`) calls `clear_ritual_flow(phone)` before prompting the user for Name, Date, Gotram, and Contact Number. The flow state is already reset to `None` by the time the user replies with those details; there is no step 4 to receive them. The reply falls through to the normal orchestrator path and the booking data is silently lost. User sees "our team will confirm shortly" with no mechanism to actually capture or forward the data.
 
-- **`orchestrator.py` — system prompts** `analyze_message_combined()` sends no `system` role message to Groq. CLOSURE_PHRASES and GREETING_PHRASES are duplicated between `orchestrator.py` and `intent_classifier.py`.
+- **`orchestrator.py` — duplicated phrase lists** CLOSURE_PHRASES and GREETING_PHRASES are duplicated between `orchestrator.py` and `intent_classifier.py`.
 
 - **`spiritual_agent.py`** — review `SPIRITUAL_SYSTEM_PROMPT`; `detect_intention()` bare Groq call has no typed error handling.
 
