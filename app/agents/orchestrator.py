@@ -142,30 +142,49 @@ def analyze_message_combined(message: str, phone: str) -> dict:
 
     # ── 8. LLM combined analysis ──
     try:
-        prompt = f"""Analyze this message for Srisailam temple WhatsApp bot.
+        system_prompt = (
+            "You are an intent classification assistant for a WhatsApp pilgrim guide bot serving the\n"
+            "Srisailam Mallikarjuna Jyotirlinga temple in Andhra Pradesh, India. Your only job is to\n"
+            "analyze an incoming pilgrim message and output three classification fields.\n\n"
+            "Pilgrims may write in Telugu, Hindi, or English. Classify by meaning, not by language —\n"
+            "treat Telugu and Hindi temple vocabulary as equivalent to their English counterparts.\n\n"
+            "Respond in EXACTLY this format — three lines, no extra text, no explanation:\n"
+            "INTENT: <greeting|journey|spiritual|ritual|temple_info|booking|festival|closure|unknown>\n"
+            "NAME: <person name if the sender explicitly introduces themselves in the current message, else NONE>\n"
+            "IS_FOLLOWUP: <YES if the current message is incomplete without the preceding conversation context, else NO>\n\n"
+            "RULES:\n"
+            "1. ANY short temple query (1–5 words about the temple) → temple_info\n"
+            "2. transport / distance / bus / train / route / directions → temple_info\n"
+            "3. plan a trip with a stated origin city and number of days → journey\n"
+            "4. which seva / which puja / specific ritual inquiry → ritual\n"
+            "5. mantra / preparation checklist / what to bring → spiritual\n"
+            "6. timings / facilities / darshan info / dress code → temple_info\n"
+            "7. booking inquiry / how to book → booking\n"
+            "8. festival / auspicious day / pradosha / shivaratri → festival\n"
+            "9. NEVER return unknown for any temple-related query — default to temple_info\n\n"
+            "EDGE CASES:\n"
+            "- Short messages (1–5 words) that are temple-related must resolve to temple_info, not unknown.\n"
+            "- NAME must only reflect a name the sender explicitly states in the current message.\n"
+            "  Do not infer or carry forward names seen in the conversation history.\n"
+            "- IS_FOLLOWUP is YES only when the current message cannot stand alone without prior context\n"
+            "  (e.g., \"what time?\" following a timings question, or \"tell me more\" with no new subject).\n"
+            "- When a message contains both a greeting and a question, classify by the question's topic."
+        )
 
-Message: "{message}"
-Recent conversation: {history_text}
-
-Reply in EXACTLY this format:
-INTENT: <greeting|journey|spiritual|ritual|temple_info|booking|festival|closure|unknown>
-NAME: <person name if introduced, else NONE>
-IS_FOLLOWUP: <YES if refers to previous conversation topic, else NO>
-
-RULES:
-1. ANY short temple query → temple_info
-2. transport/distance/bus/train → temple_info
-3. plan trip with days + city → journey
-4. which seva / puja → ritual
-5. mantra/prepare/checklist → spiritual
-6. timings/facilities/darshan info → temple_info
-7. how to book → booking
-8. festival/auspicious day → festival
-9. NEVER return unknown for temple-related queries"""
+        user_prompt = (
+            f"<current_message>\n{message}\n</current_message>\n\n"
+            f"<conversation_history>\n{history_text}\n</conversation_history>\n\n"
+            "Classify the CURRENT MESSAGE shown above.\n"
+            "The NAME and IS_FOLLOWUP fields refer strictly to the current message — do not extract\n"
+            "names from the conversation history or treat history topics as the subject of the current message."
+        )
 
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": user_prompt},
+            ],
             max_tokens=30,
             temperature=0
         )
