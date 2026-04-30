@@ -7,6 +7,11 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
+
+class IntentionDetectionError(Exception):
+    """Raised when the Groq call inside detect_intention fails."""
+
+
 SPIRITUAL_SYSTEM_PROMPT = """You are a knowledgeable and compassionate spiritual guide 
 for Srisailam temple — one of the twelve Jyotirlingas of Lord Shiva.
 
@@ -96,7 +101,7 @@ def detect_intention(message: str) -> str:
         return intention
     except Exception as e:
         logger.error(f"Intention detection error: {e}")
-        return "general"
+        raise IntentionDetectionError(str(e)) from e
 
 def is_seva_recommendation_request(message: str) -> bool:
     keywords = [
@@ -175,6 +180,9 @@ Keep under 1000 characters. Use {lang} language."""}
         )
         return response.choices[0].message.content
 
+    except IntentionDetectionError as e:
+        logger.warning(f"Intention detection failed — falling back to follow-up question: {e}")
+        return FOLLOW_UP_QUESTION.get(lang, FOLLOW_UP_QUESTION["en"])
     except Exception as e:
         logger.error(f"Seva recommendation error: {e}")
         return FOLLOW_UP_QUESTION.get(lang, FOLLOW_UP_QUESTION["en"])
