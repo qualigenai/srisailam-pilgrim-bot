@@ -18,6 +18,7 @@ Auditor: Rambhupal Boreddy
 | `42bf45f` | `app/agents/orchestrator.py:144` | `analyze_message_combined()` prompt split into `system` + `user` roles; current message bounded in `<current_message>` tags, history in `<conversation_history>` tags; NAME/IS_FOLLOWUP scoped explicitly to current message to prevent history leakage |
 | `3615c7a` | `app/agents/spiritual_agent.py:78` | `detect_intention()` prompt split into `system` + `user` roles; instruction text moved to `system`, raw message is the entire `user` turn |
 | `48ed3ea` | `app/agents/spiritual_agent.py:97` | `detect_intention()` silently returned `"general"` on exception; replaced with typed `IntentionDetectionError`; targeted `except IntentionDetectionError as e` with `logger.warning` added in `handle_seva_recommendation` before the blanket `except Exception` |
+| `6403113` | `app/flows/ritual_flow.py:101` | Step 3 booking confirmation message replaced misleading "please share Name/Date/Gotram/Contact" text (which implied bot data capture) with honest direction to temple website and Mana Mitra phone for actual booking |
 
 ---
 
@@ -38,8 +39,6 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 ---
 
 ### Still to Investigate
-
-- **`ritual_flow.py` — broken booking handoff** Step 3 (`awaiting_booking_confirm`) calls `clear_ritual_flow(phone)` before prompting the user for Name, Date, Gotram, and Contact Number. The flow state is already reset to `None` by the time the user replies with those details; there is no step 4 to receive them. The reply falls through to the normal orchestrator path and the booking data is silently lost. User sees "our team will confirm shortly" with no mechanism to actually capture or forward the data.
 
 - **`orchestrator.py` — duplicated phrase lists** CLOSURE_PHRASES and GREETING_PHRASES are duplicated between `orchestrator.py` and `intent_classifier.py`.
 
