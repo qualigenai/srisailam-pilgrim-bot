@@ -32,20 +32,22 @@ For booking always direct to srisailadevasthanam.org or Mana Mitra 9552300009.""
 
 def extract_journey_details(message: str) -> dict:
     try:
+        system_prompt = (
+            "Extract journey planning details from the pilgrim's message.\n\n"
+            "Reply in this exact format (use \"unknown\" if not mentioned):\n"
+            "FROM: <city>\n"
+            "DAYS: <number>\n"
+            "PEOPLE: <number or description>\n"
+            "DATE: <date or season>\n"
+            "SPECIAL: <any special requirements like elderly, children, specific seva>"
+        )
+
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{
-                "role": "user",
-                "content": f"""Extract journey planning details from this message.
-Message: "{message}"
-
-Reply in this exact format (use "unknown" if not mentioned):
-FROM: <city>
-DAYS: <number>
-PEOPLE: <number or description>
-DATE: <date or season>
-SPECIAL: <any special requirements like elderly, children, specific seva>"""
-            }],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": message},
+            ],
             max_tokens=100,
             temperature=0
         )
