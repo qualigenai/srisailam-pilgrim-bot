@@ -22,14 +22,13 @@ Auditor: Rambhupal Boreddy
 | `a78aa78` | `app/agents/journey_planner_agent.py:33` | `extract_journey_details()` prompt split into `system` + `user` roles; instruction text moved to system, raw message is the entire user turn |
 | `5e5be31` | `app/agents/journey_planner_agent.py` | `extract_journey_details()` replaced silent `return {}` with typed `JourneyDetailsError`; targeted catches added in `create_itinerary` (returns info prompt) and `needs_more_info` (returns `True`), both with `logger.warning` before degrading |
 | `e924d24` | `app/agents/journey_planner_agent.py` | `create_itinerary()` replaced silent hardcoded fallback return with typed `ItineraryGenerationError`; targeted catch added in orchestrator's `process_message` with `logger.warning` and audit log step before returning the user-facing fallback message |
+| `06cbd76` | `app/agents/orchestrator.py` | Removed four dead imports: `classify_intent`, `extract_name_from_message`, `is_follow_up`, `get_unknown_message`. All four functions remain defined in their source modules with test coverage; only the unused imports in `orchestrator.py` were removed. |
 
 ---
 
 ### Deferred — Architectural Follow-ups
 
 Known issues not yet acted on. Each requires a deliberate decision before touching.
-
-- **`orchestrator.py:2` — dead import** `classify_intent` is imported but never called; `analyze_message_combined()` is the active intent path. Separate cleanup commit.
 
 - **`classify_intent` vs `analyze_message_combined` duplication** — two functions doing overlapping intent classification via LLM. `classify_intent` is dead in production. Options: delete it, or refactor `analyze_message_combined` to delegate to it. Design question, not yet decided.
 
@@ -49,10 +48,11 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 - **`journey_planner_agent.py`** — review `PLANNER_SYSTEM_PROMPT` (used in `create_itinerary`); compression re-prompt is inlined rather than structured.
 
-- **`memory_agent.py`** — three open issues:
+- **`memory_agent.py`** — two open issues:
   - `extract_name_from_message()` has no `system` role message (instruction text combined with user message in single user turn)
   - `extract_name_from_message()` silently returns `None` on exception (same pattern as other agents — needs typed exception)
-  - 2 of 3 functions are dead code in production: `extract_name_from_message` and `is_follow_up` are imported in `orchestrator.py:15` but never called; the orchestrator derives both `NAME` and `IS_FOLLOWUP` from `analyze_message_combined()` instead. Design question: delete the dead functions, refactor `analyze_message_combined` to delegate to them, or accept the duplication.
+
+- **`memory_agent.py` vs `analyze_message_combined` — design question** `extract_name_from_message` and `is_follow_up` remain defined in `memory_agent.py` with test coverage but are unused in production; the orchestrator derives both `NAME` and `IS_FOLLOWUP` from `analyze_message_combined()` instead. Options: delete the dead functions, refactor `analyze_message_combined` to delegate to them, or accept the duplication.
 
 - **`intent_classifier.py` — error handling scope** Now that `classify_intent()` raises `IntentClassificationError`, confirm whether other Groq-calling functions in this file warrant the same typed treatment.
 
