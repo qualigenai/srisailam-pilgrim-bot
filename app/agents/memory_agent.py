@@ -6,6 +6,11 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
+
+class NameExtractionError(Exception):
+    """Raised when the Groq call inside extract_name_from_message fails."""
+
+
 # Words that indicate a NEW direct question — never a follow-up
 DIRECT_QUESTION_STARTERS = [
     "what", "when", "where", "how", "which", "who", "why",
@@ -129,4 +134,4 @@ def extract_name_from_message(message: str) -> str:
         return None
     except Exception as e:
         logger.error(f"Name extraction error: {e}")
-        return None
+        raise NameExtractionError(str(e)) from e
