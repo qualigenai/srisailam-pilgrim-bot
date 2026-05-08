@@ -51,7 +51,7 @@ class AWPAuditor:
                 with open(filename, 'r', encoding='utf-8') as f:
                     try:
                         data = json.load(f)
-                    except:
+                    except (json.JSONDecodeError, UnicodeDecodeError):
                         data = []
 
             data.append({
