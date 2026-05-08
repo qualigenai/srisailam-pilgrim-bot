@@ -49,7 +49,10 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 - **`journey_planner_agent.py`** — review `PLANNER_SYSTEM_PROMPT` (used in `create_itinerary`); compression re-prompt is inlined rather than structured.
 
-- **`memory_agent.py`** — name extraction LLM call has no `system` role message. Low priority.
+- **`memory_agent.py`** — three open issues:
+  - `extract_name_from_message()` has no `system` role message (instruction text combined with user message in single user turn)
+  - `extract_name_from_message()` silently returns `None` on exception (same pattern as other agents — needs typed exception)
+  - 2 of 3 functions are dead code in production: `extract_name_from_message` and `is_follow_up` are imported in `orchestrator.py:15` but never called; the orchestrator derives both `NAME` and `IS_FOLLOWUP` from `analyze_message_combined()` instead. Design question: delete the dead functions, refactor `analyze_message_combined` to delegate to them, or accept the duplication.
 
 - **`intent_classifier.py` — error handling scope** Now that `classify_intent()` raises `IntentClassificationError`, confirm whether other Groq-calling functions in this file warrant the same typed treatment.
 
