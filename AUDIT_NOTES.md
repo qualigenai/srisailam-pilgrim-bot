@@ -43,7 +43,11 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 - **`orchestrator.py` vs `intent_classifier.py` — phrase lists are not just duplicated, they have DRIFTED.** 7 lists duplicated total (`CLOSURE_PHRASES`, `GREETING_PHRASES`, `GREETING_SINGLE_WORDS`, `DIRECTIONS_PHRASES`, `FESTIVAL_PHRASES`, `ACCOMMODATION_PHRASES`, `PREPARATION_PHRASES`). 6 of 7 have drifted — `intent_classifier.py` is consistently the more comprehensive copy. `orchestrator.py` is running on stale, shorter versions, which means its deterministic short-circuits are missing detections that `intent_classifier` has (e.g. `"ok bye"`, `"what to wear"`, multilingual variants). Fix is not pure refactoring — extracting to a shared module requires deciding to use `intent_classifier`'s richer union, which is a behavioral change to orchestrator's routing. Needs deliberate design + verification.
 
-- **`spiritual_agent.py`** — review `SPIRITUAL_SYSTEM_PROMPT`.
+- **`spiritual_agent.py`** — `SPIRITUAL_SYSTEM_PROMPT` review findings (not yet fixed):
+  - Three different character limits that don't agree: system prompt says "under 1200 characters", user prompts in `handle_seva_recommendation` and `handle_spiritual_query` both say "under 1000 characters", `max_tokens=350` enforces ~1400 chars in English (less in Telugu/Hindi). Pick one number, align all three.
+  - `max_tokens=350` is language-blind. Works for English (~1400 chars) but may truncate Telugu/Hindi mid-response since those languages use more tokens per character.
+  - In `handle_seva_recommendation` user prompt, `{intention}` is injected twice — once in the opening line `"Recommend the best seva for {intention} at Srisailam"` and once as a labelled field `"Prayer intention: {intention}"`. Redundant.
+  - Trailing whitespace after `"guide"` on line 15 of the system prompt.
 
 - **`journey_planner_agent.py`** — review `PLANNER_SYSTEM_PROMPT` (used in `create_itinerary`); compression re-prompt is inlined rather than structured.
 
