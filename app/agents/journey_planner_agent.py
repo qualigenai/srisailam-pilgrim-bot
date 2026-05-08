@@ -12,6 +12,10 @@ class JourneyDetailsError(Exception):
     """Raised when the Groq call inside extract_journey_details fails."""
 
 
+class ItineraryGenerationError(Exception):
+    """Raised when the main LLM call inside create_itinerary fails."""
+
+
 PLANNER_SYSTEM_PROMPT = """You are an expert Srisailam temple pilgrimage planner.
 You have deep knowledge of Srisailam temple, its sevas, timings, nearby attractions and travel logistics.
 
@@ -166,16 +170,7 @@ Please tell me:
 Mana Mitra: 9552300009"""
     except Exception as e:
         logger.error(f"❌ Journey planner error: {e}")
-        return """🙏 I'd love to plan your Srisailam pilgrimage!
-
-Please tell me:
-- Which city are you travelling from?
-- How many days do you have?
-- How many people in your group?
-- Any special requirements?
-
-📱 Book: srisailadevasthanam.org
-Mana Mitra: 9552300009"""
+        raise ItineraryGenerationError(str(e)) from e
 
 
 def needs_more_info(message: str) -> bool:

@@ -6,7 +6,7 @@ from app.rag.qa_chain import answer_question
 from app.multilingual.detector import detect_language
 from app.multilingual.translator import translate_to_english
 from app.agents.spiritual_agent import process_spiritual_message
-from app.agents.journey_planner_agent import create_itinerary, needs_more_info
+from app.agents.journey_planner_agent import create_itinerary, needs_more_info, ItineraryGenerationError
 from app.utils.session_store import (
     set_user_language, add_to_history, get_history,
     set_user_name, get_user_name, get_ritual_flow
@@ -358,6 +358,20 @@ def process_message(message: str, phone: str = "unknown") -> str:
         auditor.log_step("AnalysisAgent", "combined_v2", "Analysis Failed", str(e))
         auditor.save_audit_log()
         return get_fallback_message(detected_lang)
+    except ItineraryGenerationError as e:
+        logger.warning(f"Itinerary generation failed — returning info prompt: {e}")
+        auditor.log_step("JourneyPlanner", "create_itinerary_v1", "Generation Failed", str(e))
+        auditor.save_audit_log()
+        return """🙏 I'd love to plan your Srisailam pilgrimage!
+
+Please tell me:
+- Which city are you travelling from?
+- How many days do you have?
+- How many people in your group?
+- Any special requirements?
+
+📱 Book: srisailadevasthanam.org
+Mana Mitra: 9552300009"""
     except Exception as e:
         logger.error(f"❌ AWP Workflow Error: {e}")
         auditor.log_step("System", "error_handler", "Exception", str(e))
