@@ -23,6 +23,7 @@ Auditor: Rambhupal Boreddy
 | `5e5be31` | `app/agents/journey_planner_agent.py` | `extract_journey_details()` replaced silent `return {}` with typed `JourneyDetailsError`; targeted catches added in `create_itinerary` (returns info prompt) and `needs_more_info` (returns `True`), both with `logger.warning` before degrading |
 | `e924d24` | `app/agents/journey_planner_agent.py` | `create_itinerary()` replaced silent hardcoded fallback return with typed `ItineraryGenerationError`; targeted catch added in orchestrator's `process_message` with `logger.warning` and audit log step before returning the user-facing fallback message |
 | `06cbd76` | `app/agents/orchestrator.py` | Removed four dead imports: `classify_intent`, `extract_name_from_message`, `is_follow_up`, `get_unknown_message`. All four functions remain defined in their source modules with test coverage; only the unused imports in `orchestrator.py` were removed. |
+| `6bfea76` | `app/utils/awp_logger.py`, `app/rag/vectorstore.py` | Narrowed two bare `except` blocks. `awp_logger.py:54` now catches `(json.JSONDecodeError, UnicodeDecodeError)` for JSON parse fallback. `vectorstore.py:20` now catches `Exception` with `logger.debug` for visibility, replacing silent `pass`. |
 
 ---
 
@@ -31,10 +32,6 @@ Auditor: Rambhupal Boreddy
 Known issues not yet acted on. Each requires a deliberate decision before touching.
 
 - **`classify_intent` vs `analyze_message_combined` duplication** — two functions doing overlapping intent classification via LLM. `classify_intent` is dead in production. Options: delete it, or refactor `analyze_message_combined` to delegate to it. Design question, not yet decided.
-
-- **`awp_logger.py:54` — bare `except:`** Catches `json.JSONDecodeError` during audit log read, but bare `except` also catches `SystemExit`/`KeyboardInterrupt`. Should be `except (json.JSONDecodeError, ValueError)`.
-
-- **`vectorstore.py:20` — bare `except:`** Silences the error when deleting a non-existent Chroma collection before rebuild. Intent is correct, but bare `except` is too broad. Should be `except Exception`.
 
 - **Trailing newlines** — several files lack a trailing newline; git flags them on every diff. Cosmetic, low priority.
 
