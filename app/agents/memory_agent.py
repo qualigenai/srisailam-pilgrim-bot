@@ -108,15 +108,18 @@ def extract_name_from_message(message: str) -> str:
         if not any(trigger in message_lower for trigger in name_triggers):
             return None
 
+        system_prompt = (
+            "Does this message introduce a person's name?\n"
+            "If yes, reply with ONLY the name (1-2 words max).\n"
+            "If no, reply with: NONE"
+        )
+
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{
-                "role": "user",
-                "content": f"""Does this message introduce a person's name?
-Message: "{message}"
-If yes, reply with ONLY the name (1-2 words max).
-If no, reply with: NONE"""
-            }],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": message},
+            ],
             max_tokens=10,
             temperature=0
         )
