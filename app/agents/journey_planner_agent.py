@@ -7,6 +7,11 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
+
+class JourneyDetailsError(Exception):
+    """Raised when the Groq call inside extract_journey_details fails."""
+
+
 PLANNER_SYSTEM_PROMPT = """You are an expert Srisailam temple pilgrimage planner.
 You have deep knowledge of Srisailam temple, its sevas, timings, nearby attractions and travel logistics.
 
@@ -60,7 +65,7 @@ def extract_journey_details(message: str) -> dict:
         return details
     except Exception as e:
         logger.error(f"Detail extraction error: {e}")
-        return {}
+        raise JourneyDetailsError(str(e)) from e
 
 
 def create_itinerary(message: str, phone: str) -> str:
@@ -147,6 +152,18 @@ Itinerary: {itinerary}"""
         logger.info(f"📏 Final response length: {len(full_response)} chars")
         return full_response
 
+    except JourneyDetailsError as e:
+        logger.warning(f"Journey detail extraction failed — returning info prompt: {e}")
+        return """🙏 I'd love to plan your Srisailam pilgrimage!
+
+Please tell me:
+- Which city are you travelling from?
+- How many days do you have?
+- How many people in your group?
+- Any special requirements?
+
+📱 Book: srisailadevasthanam.org
+Mana Mitra: 9552300009"""
     except Exception as e:
         logger.error(f"❌ Journey planner error: {e}")
         return """🙏 I'd love to plan your Srisailam pilgrimage!
@@ -162,7 +179,11 @@ Mana Mitra: 9552300009"""
 
 
 def needs_more_info(message: str) -> bool:
-    details = extract_journey_details(message)
+    try:
+        details = extract_journey_details(message)
+    except JourneyDetailsError as e:
+        logger.warning(f"Journey detail extraction failed — assuming more info needed: {e}")
+        return True
     from_city = details.get("FROM", "unknown")
     days = details.get("DAYS", "unknown")
     return from_city == "unknown" and days == "unknown"
