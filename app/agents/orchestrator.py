@@ -1,5 +1,4 @@
 import logging
-from app.agents.intent_classifier import classify_intent
 from app.agents.greeting_agent import handle_greeting
 from app.agents.booking_agent import handle_booking
 from app.rag.qa_chain import answer_question
@@ -11,10 +10,8 @@ from app.utils.session_store import (
     set_user_language, add_to_history, get_history,
     set_user_name, get_user_name, get_ritual_flow
 )
-from app.agents.memory_agent import (
-    build_context_prompt, extract_name_from_message, is_follow_up
-)
-from app.utils.error_handler import get_fallback_message, get_unknown_message
+from app.agents.memory_agent import build_context_prompt
+from app.utils.error_handler import get_fallback_message
 from app.flows.ritual_flow import handle_ritual_flow
 from app.utils.awp_logger import AWPAuditor
 from app.utils.awp_helpers import finalize_awp_artifact
