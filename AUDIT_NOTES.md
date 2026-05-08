@@ -42,7 +42,7 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 ### Still to Investigate
 
-- **`orchestrator.py` — duplicated phrase lists** CLOSURE_PHRASES and GREETING_PHRASES are duplicated between `orchestrator.py` and `intent_classifier.py`.
+- **`orchestrator.py` vs `intent_classifier.py` — phrase lists are not just duplicated, they have DRIFTED.** 7 lists duplicated total (`CLOSURE_PHRASES`, `GREETING_PHRASES`, `GREETING_SINGLE_WORDS`, `DIRECTIONS_PHRASES`, `FESTIVAL_PHRASES`, `ACCOMMODATION_PHRASES`, `PREPARATION_PHRASES`). 6 of 7 have drifted — `intent_classifier.py` is consistently the more comprehensive copy. `orchestrator.py` is running on stale, shorter versions, which means its deterministic short-circuits are missing detections that `intent_classifier` has (e.g. `"ok bye"`, `"what to wear"`, multilingual variants). Fix is not pure refactoring — extracting to a shared module requires deciding to use `intent_classifier`'s richer union, which is a behavioral change to orchestrator's routing. Needs deliberate design + verification.
 
 - **`spiritual_agent.py`** — review `SPIRITUAL_SYSTEM_PROMPT`.
 
