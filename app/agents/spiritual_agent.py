@@ -12,7 +12,7 @@ class IntentionDetectionError(Exception):
     """Raised when the Groq call inside detect_intention fails."""
 
 
-SPIRITUAL_SYSTEM_PROMPT = """You are a knowledgeable and compassionate spiritual guide 
+SPIRITUAL_SYSTEM_PROMPT = """You are a knowledgeable and compassionate spiritual guide
 for Srisailam temple — one of the twelve Jyotirlingas of Lord Shiva.
 
 You help pilgrims with:
@@ -24,7 +24,7 @@ You help pilgrims with:
 
 Always respond with warmth, devotion and respect.
 Start responses with 🙏
-Keep responses concise for WhatsApp — under 1200 characters.
+Keep responses concise for WhatsApp — under 1000 characters.
 Use Telugu, Hindi or English based on the pilgrim's language.
 For bookings always direct to srisailadevasthanam.org or Mana Mitra 9552300009."""
 
@@ -166,7 +166,6 @@ def handle_seva_recommendation(message: str, phone: str, lang: str) -> str:
                 {"role": "system", "content": SPIRITUAL_SYSTEM_PROMPT},
                 {"role": "user", "content": f"""Recommend the best seva for {intention} at Srisailam.
 Greeting: {greeting}
-Prayer intention: {intention}
 Temple info: {context}
 
 Provide:
@@ -175,7 +174,7 @@ Provide:
 3. One relevant mantra or prayer tip
 Keep under 1000 characters. Use {lang} language."""}
             ],
-            max_tokens=350,
+            max_tokens=400,
             temperature=0.3
         )
         return response.choices[0].message.content
@@ -207,7 +206,7 @@ Context: {context}
 
 Keep under 1000 characters. Use {lang} language."""}
             ],
-            max_tokens=350,
+            max_tokens=400,
             temperature=0.3
         )
         return response.choices[0].message.content
