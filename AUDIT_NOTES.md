@@ -55,6 +55,12 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 - **`intent_classifier.py` — error handling scope** Now that `classify_intent()` raises `IntentClassificationError`, confirm whether other Groq-calling functions in this file warrant the same typed treatment.
 
+- **`qa_chain.py`** — SYSTEM_PROMPT and user prompt content review findings (not yet fixed):
+  - "Never make up information" instruction duplicated verbatim in both system_prompt and user_prompt.
+  - "Be concise for WhatsApp" instruction duplicated with slightly different wording (system says "Keep responses concise and clear — suitable for WhatsApp messages", user says "Keep answer concise for WhatsApp").
+  - "Don't know" handling has two competing scripts: system says "suggest visiting srisailadevasthanam.org" while user prompt scripts an exact response "🙏 I don't have specific information about that. Please visit srisailadevasthanam.org or call 08524-288888 for accurate details." Potential conflict — the model has to choose which version to follow.
+  - User prompt has its own "IMPORTANT RULES" block that overlaps with system role instructions, suggesting the prompts evolved independently and were never reconciled.
+
 ---
 
 ### Patterns Established
