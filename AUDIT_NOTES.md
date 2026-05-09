@@ -27,6 +27,7 @@ Auditor: Rambhupal Boreddy
 | `c44594e` | `app/agents/memory_agent.py` | `extract_name_from_message()` prompt split into `system` + `user` roles; instruction text moved to system, raw message is the entire user turn |
 | `c5efea4` | `app/agents/memory_agent.py` | `extract_name_from_message()` replaced silent `return None` with typed `NameExtractionError`. No call site changes needed — no production callers; tests are unaffected. |
 | `8e412e7` | `app/utils/phrase_lists.py`, `app/agents/orchestrator.py`, `app/agents/intent_classifier.py` | Extracted 8 phrase lists to shared `app/utils/phrase_lists.py` module. 6 of 8 lists had drifted; merged using intent_classifier's richer copy. Behavioral improvement: orchestrator's deterministic short-circuits now match phrases like `"ok bye"`, `"cab from"`, `"ugadi"`, `"before visiting"` that previously fell through to LLM. |
+| `94f282f` | `app/agents/spiritual_agent.py` | Applied 4 fixes from documented `SPIRITUAL_SYSTEM_PROMPT` findings. Character limits aligned to 1000 chars across system and user prompts. `max_tokens` raised 350 → 400 for Telugu/Hindi buffer. Duplicate `{intention}` injection removed from `handle_seva_recommendation`. Trailing whitespace stripped from system prompt line 15. |
 
 ---
 
@@ -42,11 +43,7 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 ### Still to Investigate
 
-- **`spiritual_agent.py`** — `SPIRITUAL_SYSTEM_PROMPT` review findings (not yet fixed):
-  - Three different character limits that don't agree: system prompt says "under 1200 characters", user prompts in `handle_seva_recommendation` and `handle_spiritual_query` both say "under 1000 characters", `max_tokens=350` enforces ~1400 chars in English (less in Telugu/Hindi). Pick one number, align all three.
-  - `max_tokens=350` is language-blind. Works for English (~1400 chars) but may truncate Telugu/Hindi mid-response since those languages use more tokens per character.
-  - In `handle_seva_recommendation` user prompt, `{intention}` is injected twice — once in the opening line `"Recommend the best seva for {intention} at Srisailam"` and once as a labelled field `"Prayer intention: {intention}"`. Redundant.
-  - Trailing whitespace after `"guide"` on line 15 of the system prompt.
+- **`spiritual_agent.py`** — `max_tokens` still language-blind. Raised from 350 to 400 in commit `94f282f` for buffer, but Telugu/Hindi messages may still truncate before reaching the 1000-char prompt limit. Full fix would be language-aware `max_tokens`.
 
 - **`journey_planner_agent.py`** — review `PLANNER_SYSTEM_PROMPT` (used in `create_itinerary`); compression re-prompt is inlined rather than structured.
 
