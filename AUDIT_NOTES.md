@@ -5,6 +5,8 @@ Auditor: Rambhupal Boreddy
 
 ---
 
+This document records findings from a systematic audit of the deployed Srisailam Pilgrim Bot — a WhatsApp-based pilgrim guide for the Srisailam Jyotirlinga temple. The audit covered silent error handling, prompt design, dead code, and behavioral correctness across the multi-agent codebase. The most significant finding was a production TypeError in `qa_chain.py` that silently returned a fallback message to every user on every RAG call; investigating its root cause revealed a broader pattern of silent-error handling across multiple agents that masked Groq API failures as legitimate responses.
+
 ## Audit Findings Log
 
 ### Resolved
@@ -14,7 +16,7 @@ Auditor: Rambhupal Boreddy
 | `aa279c6` | `app/rag/qa_chain.py:148` | Stale `top_k` kwarg passed to `search_multi_intent()` — caused TypeError on every RAG call, silently swallowed by bare `except Exception`, returned generic fallback to all users |
 | `294944f` | `app/agents/orchestrator.py:188` | `analyze_message_combined()` caught all exceptions and returned `{"INTENT": "temple_info", ...}` — Groq API failures were indistinguishable from legitimate temple_info routing; replaced with typed `AnalysisError` |
 | `ff3bed7` | `app/agents/intent_classifier.py:181` | `classify_intent()` caught all exceptions and returned `"unknown"` — Groq failures routed silently to RAG fallback; replaced with typed `IntentClassificationError` |
-| (this commit) | `.gitignore` / `.idea/` | Verified `.idea/` folder is not tracked by git (`git rm --cached .idea/` returned no matches). `.gitignore` already contains `.idea/` entry. Deferred item resolved by verification, no untracking action was needed. |
+| `cb099ee` | `.gitignore` / `.idea/` | Verified `.idea/` folder is not tracked by git (`git rm --cached .idea/` returned no matches). `.gitignore` already contains `.idea/` entry. Deferred item resolved by verification, no untracking action was needed. |
 | `42bf45f` | `app/agents/orchestrator.py:144` | `analyze_message_combined()` prompt split into `system` + `user` roles; current message bounded in `<current_message>` tags, history in `<conversation_history>` tags; NAME/IS_FOLLOWUP scoped explicitly to current message to prevent history leakage |
 | `3615c7a` | `app/agents/spiritual_agent.py:78` | `detect_intention()` prompt split into `system` + `user` roles; instruction text moved to `system`, raw message is the entire `user` turn |
 | `48ed3ea` | `app/agents/spiritual_agent.py:97` | `detect_intention()` silently returned `"general"` on exception; replaced with typed `IntentionDetectionError`; targeted `except IntentionDetectionError as e` with `logger.warning` added in `handle_seva_recommendation` before the blanket `except Exception` |
@@ -33,7 +35,7 @@ Auditor: Rambhupal Boreddy
 
 ### Deferred — Architectural Follow-ups
 
-Known issues not yet acted on. Each requires a deliberate decision before touching.
+Known issues where the fix requires a deliberate design decision — options identified but not yet decided.
 
 - **`classify_intent` vs `analyze_message_combined` duplication** — two functions doing overlapping intent classification via LLM. `classify_intent` is dead in production. Options: delete it, or refactor `analyze_message_combined` to delegate to it. Design question, not yet decided.
 
@@ -43,13 +45,13 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 
 ### Still to Investigate
 
+Items not yet investigated or only partially resolved.
+
 - **`spiritual_agent.py`** — `max_tokens` still language-blind. Raised from 350 to 400 in commit `94f282f` for buffer, but Telugu/Hindi messages may still truncate before reaching the 1000-char prompt limit. Full fix would be language-aware `max_tokens`.
 
 - **`journey_planner_agent.py`** — review `PLANNER_SYSTEM_PROMPT` (used in `create_itinerary`); compression re-prompt is inlined rather than structured.
 
 - **`memory_agent.py` vs `analyze_message_combined` — design question** `extract_name_from_message` and `is_follow_up` remain defined in `memory_agent.py` with test coverage but are unused in production; the orchestrator derives both `NAME` and `IS_FOLLOWUP` from `analyze_message_combined()` instead. Options: delete the dead functions, refactor `analyze_message_combined` to delegate to them, or accept the duplication.
-
-- **`intent_classifier.py` — error handling scope** Now that `classify_intent()` raises `IntentClassificationError`, confirm whether other Groq-calling functions in this file warrant the same typed treatment.
 
 - **`qa_chain.py`** — SYSTEM_PROMPT and user prompt content review findings (not yet fixed):
   - "Never make up information" instruction duplicated verbatim in both system_prompt and user_prompt.
@@ -62,3 +64,5 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 ### Patterns Established
 
 - **Typed exception for silent-error refactors** — define a typed exception at module level (e.g. `class AnalysisError(Exception)`), replace silent `return <fallback>` in the except block with `raise MyError(str(e)) from e`, catch explicitly at the call site. Preserves user-facing reliability while making crash paths distinguishable from legitimate fallback paths.
+
+- **Prompt role hygiene for LLM calls** — separate instructional content (system role) from live data (user role); when input has multiple parts, use explicit XML tags or labels for boundaries; this pattern was applied uniformly across orchestrator's `analyze_message_combined`, spiritual_agent's `detect_intention`, journey_planner's `extract_journey_details`, and memory_agent's `extract_name_from_message`.
