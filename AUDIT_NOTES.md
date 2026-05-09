@@ -26,6 +26,7 @@ Auditor: Rambhupal Boreddy
 | `6bfea76` | `app/utils/awp_logger.py`, `app/rag/vectorstore.py` | Narrowed two bare `except` blocks. `awp_logger.py:54` now catches `(json.JSONDecodeError, UnicodeDecodeError)` for JSON parse fallback. `vectorstore.py:20` now catches `Exception` with `logger.debug` for visibility, replacing silent `pass`. |
 | `c44594e` | `app/agents/memory_agent.py` | `extract_name_from_message()` prompt split into `system` + `user` roles; instruction text moved to system, raw message is the entire user turn |
 | `c5efea4` | `app/agents/memory_agent.py` | `extract_name_from_message()` replaced silent `return None` with typed `NameExtractionError`. No call site changes needed — no production callers; tests are unaffected. |
+| `8e412e7` | `app/utils/phrase_lists.py`, `app/agents/orchestrator.py`, `app/agents/intent_classifier.py` | Extracted 8 phrase lists to shared `app/utils/phrase_lists.py` module. 6 of 8 lists had drifted; merged using intent_classifier's richer copy. Behavioral improvement: orchestrator's deterministic short-circuits now match phrases like `"ok bye"`, `"cab from"`, `"ugadi"`, `"before visiting"` that previously fell through to LLM. |
 
 ---
 
@@ -40,8 +41,6 @@ Known issues not yet acted on. Each requires a deliberate decision before touchi
 ---
 
 ### Still to Investigate
-
-- **`orchestrator.py` vs `intent_classifier.py` — phrase lists are not just duplicated, they have DRIFTED.** 7 lists duplicated total (`CLOSURE_PHRASES`, `GREETING_PHRASES`, `GREETING_SINGLE_WORDS`, `DIRECTIONS_PHRASES`, `FESTIVAL_PHRASES`, `ACCOMMODATION_PHRASES`, `PREPARATION_PHRASES`). 6 of 7 have drifted — `intent_classifier.py` is consistently the more comprehensive copy. `orchestrator.py` is running on stale, shorter versions, which means its deterministic short-circuits are missing detections that `intent_classifier` has (e.g. `"ok bye"`, `"what to wear"`, multilingual variants). Fix is not pure refactoring — extracting to a shared module requires deciding to use `intent_classifier`'s richer union, which is a behavioral change to orchestrator's routing. Needs deliberate design + verification.
 
 - **`spiritual_agent.py`** — `SPIRITUAL_SYSTEM_PROMPT` review findings (not yet fixed):
   - Three different character limits that don't agree: system prompt says "under 1200 characters", user prompts in `handle_seva_recommendation` and `handle_spiritual_query` both say "under 1000 characters", `max_tokens=350` enforces ~1400 chars in English (less in Telugu/Hindi). Pick one number, align all three.
