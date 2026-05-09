@@ -30,6 +30,7 @@ This document records findings from a systematic audit of the deployed Srisailam
 | `c5efea4` | `app/agents/memory_agent.py` | `extract_name_from_message()` replaced silent `return None` with typed `NameExtractionError`. No call site changes needed — no production callers; tests are unaffected. |
 | `8e412e7` | `app/utils/phrase_lists.py`, `app/agents/orchestrator.py`, `app/agents/intent_classifier.py` | Extracted 8 phrase lists to shared `app/utils/phrase_lists.py` module. 6 of 8 lists had drifted; merged using intent_classifier's richer copy. Behavioral improvement: orchestrator's deterministic short-circuits now match phrases like `"ok bye"`, `"cab from"`, `"ugadi"`, `"before visiting"` that previously fell through to LLM. |
 | `94f282f` | `app/agents/spiritual_agent.py` | Applied 4 fixes from documented `SPIRITUAL_SYSTEM_PROMPT` findings. Character limits aligned to 1000 chars across system and user prompts. `max_tokens` raised 350 → 400 for Telugu/Hindi buffer. Duplicate `{intention}` injection removed from `handle_seva_recommendation`. Trailing whitespace stripped from system prompt line 15. |
+| `9487b7f` | 40 project-owned `.py` and `.md` files | Added trailing newlines across all 40 project-owned Python and Markdown files. Cosmetic cleanup; ends repeated git diff noise on otherwise unchanged files. |
 
 ---
 
@@ -38,8 +39,6 @@ This document records findings from a systematic audit of the deployed Srisailam
 Known issues where the fix requires a deliberate design decision — options identified but not yet decided.
 
 - **`classify_intent` vs `analyze_message_combined` duplication** — two functions doing overlapping intent classification via LLM. `classify_intent` is dead in production. Options: delete it, or refactor `analyze_message_combined` to delegate to it. Design question, not yet decided.
-
-- **Trailing newlines** — several files lack a trailing newline; git flags them on every diff. Cosmetic, low priority.
 
 ---
 
