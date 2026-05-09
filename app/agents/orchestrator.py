@@ -15,75 +15,17 @@ from app.utils.error_handler import get_fallback_message
 from app.flows.ritual_flow import handle_ritual_flow
 from app.utils.awp_logger import AWPAuditor
 from app.utils.awp_helpers import finalize_awp_artifact
+from app.utils.phrase_lists import (
+    CLOSURE_PHRASES, GREETING_PHRASES, GREETING_SINGLE_WORDS,
+    DIRECTIONS_PHRASES, ACCOMMODATION_PHRASES, FESTIVAL_PHRASES,
+    PREPARATION_PHRASES, TEMPLE_KEYWORDS,
+)
 
 logger = logging.getLogger(__name__)
 
 
 class AnalysisError(Exception):
     """Raised when analyze_message_combined() fails to call or parse the Groq API."""
-
-
-# ── Shared deterministic phrase lists ───────────────────────
-
-CLOSURE_PHRASES = [
-    "thanks", "thank you", "ok thanks", "okay thanks",
-    "bye", "goodbye", "dhanyavadalu", "shukriya",
-    "got it", "understood", "noted"
-]
-
-GREETING_PHRASES = [
-    "jai mallikarjuna", "jai shiva",
-    "om namah shivaya", "har har mahadev",
-    "హర హర మహాదేవ్", "నమస్కారం", "నమస్తే",
-    "नमस्ते", "जय शिव", "हर हर महादेव"
-]
-
-GREETING_SINGLE_WORDS = ["hi", "hello", "hey", "namaste"]
-
-DIRECTIONS_PHRASES = [
-    "how to reach", "how to get to", "route to",
-    "directions to", "distance to", "distance from",
-    "bus from", "bus to", "train to", "train from",
-    "nearest railway", "nearest station", "nearest airport",
-    "railway station", "bus station", "nallamala", "forest road",
-    "ఎలా చేరుకోవాలి", "ఎలా వెళ్ళాలి", "రైలు", "బస్సు",
-    "कैसे पहुंचें", "कैसे जाएं", "रेलवे", "बस"
-]
-
-ACCOMMODATION_PHRASES = [
-    "where to stay", "accommodation", "hotel near",
-    "lodge near", "nandhiniketan", "rooms at",
-    "dharmashalas", "guest house", "stay near",
-    "stay in srisailam", "వసతి", "హోటల్",
-    "रुकने", "होटल", "आवास"
-]
-
-FESTIVAL_PHRASES = [
-    "pradosha", "pradosh",
-    "is monday", "monday special",
-    "shivaratri", "karthika",
-    "సోమవారం", "ప్రదోష",
-    "सोमवार", "प्रदोष"
-]
-
-PREPARATION_PHRASES = [
-    "how to prepare", "preparation for",
-    "what to bring", "what to carry",
-    "checklist for", "dress code",
-    "తయారు", "ఏమి తీసుకెళ్ళాలి",
-    "तैयारी", "क्या पहनना"
-]
-
-TEMPLE_KEYWORDS = [
-    "timings", "timing", "temple time", "open time",
-    "darshan time", "puja time", "temple hours",
-    "prasadam", "annadanam", "facilities",
-    "entry fee", "ticket", "queue", "crowd",
-    "significance", "history", "about temple",
-    "dress code", "what to wear",
-    "సమయాలు", "సమయం", "దర్శనం సమయం",
-    "समय", "दर्शन समय", "मंदिर"
-]
 
 
 def analyze_message_combined(message: str, phone: str) -> dict:
