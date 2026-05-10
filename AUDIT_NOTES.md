@@ -58,6 +58,11 @@ Items not yet investigated or only partially resolved.
   - "Don't know" handling has two competing scripts: system says "suggest visiting srisailadevasthanam.org" while user prompt scripts an exact response "🙏 I don't have specific information about that. Please visit srisailadevasthanam.org or call 08524-288888 for accurate details." Potential conflict — the model has to choose which version to follow.
   - User prompt has its own "IMPORTANT RULES" block that overlaps with system role instructions, suggesting the prompts evolved independently and were never reconciled.
 
+- **`tests/`** — 3 pre-existing test failures unrelated to this audit. Confirmed failing on both main and audit branch with identical assertion messages, so they pre-date the audit and were not caused by it. Specifics:
+  - `tests/test_agents.py::TestIntentClassifier::test_booking_intent` — asserts `classify_intent("How to book darshan tickets?") == "booking"` but Groq returns `"temple_info"`. Likely test is brittle to LLM nondeterminism rather than a code bug.
+  - `tests/test_agents.py::TestIntentClassifier::test_unknown_intent` — asserts `classify_intent("What is the price of gold?") == "unknown"` but Groq returns `"temple_info"`. Same LLM-nondeterminism concern.
+  - `tests/test_memory.py::TestSessionStore::test_history_limit` — asserts `len(history) <= 10` but actual is `15`. Real `session_store` bug worth investigating separately. Either history-limit logic is broken or the test's setup creates more entries than the limit allows.
+
 ---
 
 ### Patterns Established
