@@ -80,18 +80,16 @@ Please reply with the number or describe your intention.""",
 
 def detect_intention(message: str) -> str:
     try:
-        system_prompt = (
-            "Identify the prayer intention from this message.\n\n"
-            "Choose ONE from: health, prosperity, family, education, moksha, obstacles, general\n"
-            "Reply with ONLY the single word."
-        )
-
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user",   "content": message},
-            ],
+            messages=[{
+                "role": "user",
+                "content": f"""Identify the prayer intention from this message.
+Message: "{message}"
+
+Choose ONE from: health, prosperity, family, education, moksha, obstacles, general
+Reply with ONLY the single word."""
+            }],
             max_tokens=10,
             temperature=0
         )
