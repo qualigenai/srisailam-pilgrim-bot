@@ -7,7 +7,12 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
-SPIRITUAL_SYSTEM_PROMPT = """You are a knowledgeable and compassionate spiritual guide 
+
+class IntentionDetectionError(Exception):
+    """Raised when the Groq call inside detect_intention fails."""
+
+
+SPIRITUAL_SYSTEM_PROMPT = """You are a knowledgeable and compassionate spiritual guide
 for Srisailam temple — one of the twelve Jyotirlingas of Lord Shiva.
 
 You help pilgrims with:
@@ -19,7 +24,7 @@ You help pilgrims with:
 
 Always respond with warmth, devotion and respect.
 Start responses with 🙏
-Keep responses concise for WhatsApp — under 1200 characters.
+Keep responses concise for WhatsApp — under 1000 characters.
 Use Telugu, Hindi or English based on the pilgrim's language.
 For bookings always direct to srisailadevasthanam.org or Mana Mitra 9552300009."""
 
@@ -94,7 +99,7 @@ Reply with ONLY the single word."""
         return intention
     except Exception as e:
         logger.error(f"Intention detection error: {e}")
-        return "general"
+        raise IntentionDetectionError(str(e)) from e
 
 def is_seva_recommendation_request(message: str) -> bool:
     keywords = [
@@ -159,7 +164,6 @@ def handle_seva_recommendation(message: str, phone: str, lang: str) -> str:
                 {"role": "system", "content": SPIRITUAL_SYSTEM_PROMPT},
                 {"role": "user", "content": f"""Recommend the best seva for {intention} at Srisailam.
 Greeting: {greeting}
-Prayer intention: {intention}
 Temple info: {context}
 
 Provide:
@@ -168,11 +172,14 @@ Provide:
 3. One relevant mantra or prayer tip
 Keep under 1000 characters. Use {lang} language."""}
             ],
-            max_tokens=350,
+            max_tokens=400,
             temperature=0.3
         )
         return response.choices[0].message.content
 
+    except IntentionDetectionError as e:
+        logger.warning(f"Intention detection failed — falling back to follow-up question: {e}")
+        return FOLLOW_UP_QUESTION.get(lang, FOLLOW_UP_QUESTION["en"])
     except Exception as e:
         logger.error(f"Seva recommendation error: {e}")
         return FOLLOW_UP_QUESTION.get(lang, FOLLOW_UP_QUESTION["en"])
@@ -197,7 +204,7 @@ Context: {context}
 
 Keep under 1000 characters. Use {lang} language."""}
             ],
-            max_tokens=350,
+            max_tokens=400,
             temperature=0.3
         )
         return response.choices[0].message.content

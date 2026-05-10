@@ -99,12 +99,10 @@ def handle_ritual_flow(phone: str, message: str) -> str:
             clear_ritual_flow(phone)
             logger.info(f"✅ Booking confirmed for {phone}: {seva}")
             return (
-                f"🎉 Wonderful! To complete your *{seva}* booking, please share:\n\n"
-                f"📛 Full Name\n"
-                f"📅 Preferred Date\n"
-                f"📿 Gotram (if known)\n"
-                f"📞 Contact Number\n\n"
-                f"Our team at Srisailam will confirm your booking shortly. 🕉️"
+                f"🎉 Wonderful! To book your *{seva}*, please contact:\n\n"
+                f"🌐 Website: srisailadevasthanam.org\n"
+                f"📞 Mana Mitra: 9552300009\n\n"
+                f"The temple staff will guide you through the booking. 🕉️"
             )
 
         elif "no" in msg_lower:

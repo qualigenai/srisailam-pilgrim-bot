@@ -17,8 +17,8 @@ def build_vectorstore(chunks: list[dict]):
     try:
         client.delete_collection(COLLECTION_NAME)
         logger.info("🗑️ Deleted existing collection")
-    except:
-        pass
+    except Exception as e:
+        logger.debug(f"Collection delete skipped: {e}")
 
     collection = client.create_collection(COLLECTION_NAME)
 

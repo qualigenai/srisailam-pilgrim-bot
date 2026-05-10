@@ -7,6 +7,15 @@ import logging
 logger = logging.getLogger(__name__)
 client = Groq(api_key=GROQ_API_KEY)
 
+
+class JourneyDetailsError(Exception):
+    """Raised when the Groq call inside extract_journey_details fails."""
+
+
+class ItineraryGenerationError(Exception):
+    """Raised when the main LLM call inside create_itinerary fails."""
+
+
 PLANNER_SYSTEM_PROMPT = """You are an expert Srisailam temple pilgrimage planner.
 You have deep knowledge of Srisailam temple, its sevas, timings, nearby attractions and travel logistics.
 
@@ -32,20 +41,22 @@ For booking always direct to srisailadevasthanam.org or Mana Mitra 9552300009.""
 
 def extract_journey_details(message: str) -> dict:
     try:
+        system_prompt = (
+            "Extract journey planning details from the pilgrim's message.\n\n"
+            "Reply in this exact format (use \"unknown\" if not mentioned):\n"
+            "FROM: <city>\n"
+            "DAYS: <number>\n"
+            "PEOPLE: <number or description>\n"
+            "DATE: <date or season>\n"
+            "SPECIAL: <any special requirements like elderly, children, specific seva>"
+        )
+
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{
-                "role": "user",
-                "content": f"""Extract journey planning details from this message.
-Message: "{message}"
-
-Reply in this exact format (use "unknown" if not mentioned):
-FROM: <city>
-DAYS: <number>
-PEOPLE: <number or description>
-DATE: <date or season>
-SPECIAL: <any special requirements like elderly, children, specific seva>"""
-            }],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": message},
+            ],
             max_tokens=100,
             temperature=0
         )
@@ -58,7 +69,7 @@ SPECIAL: <any special requirements like elderly, children, specific seva>"""
         return details
     except Exception as e:
         logger.error(f"Detail extraction error: {e}")
-        return {}
+        raise JourneyDetailsError(str(e)) from e
 
 
 def create_itinerary(message: str, phone: str) -> str:
@@ -145,8 +156,8 @@ Itinerary: {itinerary}"""
         logger.info(f"📏 Final response length: {len(full_response)} chars")
         return full_response
 
-    except Exception as e:
-        logger.error(f"❌ Journey planner error: {e}")
+    except JourneyDetailsError as e:
+        logger.warning(f"Journey detail extraction failed — returning info prompt: {e}")
         return """🙏 I'd love to plan your Srisailam pilgrimage!
 
 Please tell me:
@@ -157,10 +168,17 @@ Please tell me:
 
 📱 Book: srisailadevasthanam.org
 Mana Mitra: 9552300009"""
+    except Exception as e:
+        logger.error(f"❌ Journey planner error: {e}")
+        raise ItineraryGenerationError(str(e)) from e
 
 
 def needs_more_info(message: str) -> bool:
-    details = extract_journey_details(message)
+    try:
+        details = extract_journey_details(message)
+    except JourneyDetailsError as e:
+        logger.warning(f"Journey detail extraction failed — assuming more info needed: {e}")
+        return True
     from_city = details.get("FROM", "unknown")
     days = details.get("DAYS", "unknown")
     return from_city == "unknown" and days == "unknown"
